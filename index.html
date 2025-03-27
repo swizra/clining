@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soyth</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="css/root.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/logo.css">
+  <link rel="stylesheet" href="css/hero.css">
+<style>
+  
+h1[data-aos]::after,
+h2[data-aos]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(to right, #007BFF, #FF69B4, #8A2BE2);
+  transition: width 0.5s ease;
+}
+
+h1[data-aos].aos-animate::after,
+h2[data-aos].aos-animate::after {
+  width: 100%;
+}
+
+.about-section {
+  flex: 1;
+  padding: 100px 2rem 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-section h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-align: left;
+  color: var(--text-color);
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.info-section {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  background: var(--header-bg);
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
+  border: 1px solid var(--text-color);
+}
+
+.info-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.info-section p {
+  font-size: 1rem;
+}
+
+
+.info-section {
+  overflow: hidden;
+}
+
+.info-section h2 .material-icons {
+  font-size: 30rem;
+  color: var(--accent-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.info-section:hover .material-icons {
+  opacity: 0.1;
+}
+</style>
+</head>
+<body>
+
+    <header>
+<div class="logo-container">
+    <a href="index.html" class="logo">Soyth<span class="italic-x"></span></a>
+</div>
+
+    <nav>
+      <div class="search-icon" id="searchIcon" onclick="toggleSearchInput()">
+        <span class="material-icons">search</span>
+      </div>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search..." oninput="searchOnPage()" />
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="burger" id="burger">
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+  </header> 
+  
+<section class="hero">
+  <div class="hero-content">
+    <h1>Soyth Consulting Club</h1>
+    <div>
+    <h2 class="playfair">Your gateway to a world of consulting, strategy, and innovation.</h1>
+    </div>
+    <div class="btn-row">
+    <a href="about.html" class="btn-primary">Learn More</a>
+    <a href="services.html" class="btn-secondary">Our Services</a>
+  </div>
+</section>
+
+  <section class="about-section" data-aos="fade-up">
+    <h1 data-aos="fade-up">About Us</h1>
+    <p data-aos="fade-up">Soyth is a leading consulting club in Basel that brings together industry experts, passionate professionals, and ambitious students to explore business strategy, innovation, and leadership.</p>
+    
+    <div class="info-section" data-aos="fade-up" data-aos-delay="200">
+      <h2 data-aos="fade-up">
+        <span class="material-icons icon-right">lightbulb_outline</span> Our Mission
+      </h2>
+      <p data-aos="fade-up">To empower the next generation of consultants by providing a platform for learning, networking, and hands-on experience in the consulting world.</p>
+    </div>
+
+    <div class="info-section" data-aos="fade-up" data-aos-delay="400">
+      <h2 data-aos="fade-up">
+        <span class="material-icons icon-right">visibility</span> Our Vision
+      </h2>
+      <p data-aos="fade-up">We envision a dynamic community where innovative thinking meets practical expertise, fostering personal and professional growth for all our members.</p>
+    </div>
+
+    <div class="info-section" data-aos="fade-up" data-aos-delay="600">
+      <h2 data-aos="fade-up">
+        <span class="material-icons icon-right">check_circle_outline</span> Our Values
+      </h2>
+      <p data-aos="fade-up">Integrity, Innovation, and Collaboration are at the heart of everything we do. We strive to create an inclusive and empowering environment for every member.</p>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-columns">
+      <div class="footer-section">
+        <h3>Sitemap</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Legal & Policies</h3>
+        <ul>
+          <li><a href="terms.html">Terms and Conditions</a></li>
+          <li><a href="membership.html">Club Membership</a></li>
+          <li><a href="rules.html">Rules & Regulations</a></li>
+          <li><a href="join.html">Join Us</a></li>
+          <li><a href="cookies-policy.html">Cookies Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Collaborate With Us</h3>
+        <ul>
+          <li><a href="#">Consulting Opportunities</a></li>
+          <li><a href="#">Become a Partner</a></li>
+          <li><a href="#">Collaborate on Projects</a></li>
+          <li><a href="#">Internships</a></li>
+          <li><a href="#">Job Openings</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Knowledge Hub</h3>
+        <ul>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Consulting Resources</a></li>
+          <li><a href="#">Training Materials</a></li>
+          <li><a href="#">Events Archive</a></li>
+          <li><a href="#">Industry Insights</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-accordion">
+      <div class="accordion-item">
+        <button class="accordion-toggle">Sitemap <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-toggle">Legal & Policies <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="terms.html">Terms and Conditions</a></li>
+            <li><a href="membership.html">Club Membership</a></li>
+            <li><a href="rules.html">Rules & Regulations</a></li>
+            <li><a href="join.html">Join Us</a></li>
+            <li><a href="cookies-policy.html">Cookies Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-toggle">Collaborate With Us <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="#">Consulting Opportunities</a></li>
+            <li><a href="#">Become a Partner</a></li>
+            <li><a href="#">Collaborate on Projects</a></li>
+            <li><a href="#">Internships</a></li>
+            <li><a href="#">Job Openings</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-toggle">Knowledge Hub <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">Consulting Resources</a></li>
+            <li><a href="#">Training Materials</a></li>
+            <li><a href="#">Events Archive</a></li>
+            <li><a href="#">Industry Insights</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p>&copy; 2025 Soyth Club. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, easing: 'ease-out', once: true });
+
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+      burger.classList.toggle('toggle');
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const accordions = document.querySelectorAll('.accordion-toggle');
+      accordions.forEach(accordion => {
+        accordion.addEventListener('click', function() {
+          const content = this.nextElementSibling;
+          const arrow = this.querySelector('.arrow');
+
+          if (content.style.height === "0px" || !content.style.height) {
+            content.style.height = `${content.scrollHeight}px`;
+            arrow.textContent = "expand_less";
+          } else {
+            content.style.height = "0px";
+            arrow.textContent = "expand_more";
+          }
+        });
+      });
+    });
+
+    document.getElementById('searchIcon').addEventListener('click', function() {
+      const searchInput = document.getElementById('searchInput');
+      searchInput.classList.toggle('active');
+      searchInput.focus();
+    });
+
+    function searchOnPage() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const elementsToSearch = document.querySelectorAll('p, h1, h2, h3, li');
+      elementsToSearch.forEach(element => {
+        const textContent = element.textContent.toLowerCase();
+        if (textContent.includes(searchTerm) && searchTerm.trim() !== "") {
+          element.classList.add('highlight');
+        } else {
+          element.classList.remove('highlight');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
