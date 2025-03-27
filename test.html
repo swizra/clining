@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendar Integration</title>
+  <!-- Material Icons and Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- AOS CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="css/css.css" />
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <a href="index.html" class="logo">Soyth<span class="italic-x"></span></a>
+    </div>
+    <nav>
+      <div class="search-icon" id="searchIcon" onclick="toggleSearchInput()">
+        <span class="material-icons">search</span>
+      </div>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search..." oninput="searchOnPage()" />
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="membership.html">Membership</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="burger" id="burger">
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Other page sections -->
+  <div id="events-section"></div>
+
+  <!-- Calendar Section -->
+  <section id="calendar-section">
+    <h2>Upcoming Events</h2>
+    <div id="calendar"></div>
+  </section>
+
+  <footer id="contact">
+    <!-- Footer content (same as before) -->
+    <div class="footer-columns">
+      <div class="footer-section">
+        <h3>Sitemap</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Legal & Policies</h3>
+        <ul>
+          <li><a href="terms.html">Terms and Conditions</a></li>
+          <li><a href="membership.html">Club Membership</a></li>
+          <li><a href="rules.html">Rules & Regulations</a></li>
+          <li><a href="join.html">Join Us</a></li>
+          <li><a href="cookies-policy.html">Cookies Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Collaborate With Us</h3>
+        <ul>
+          <li><a href="#">Consulting Opportunities</a></li>
+          <li><a href="#">Become a Partner</a></li>
+          <li><a href="#">Collaborate on Projects</a></li>
+          <li><a href="#">Internships</a></li>
+          <li><a href="#">Job Openings</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Knowledge Hub</h3>
+        <ul>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Consulting Resources</a></li>
+          <li><a href="#">Training Materials</a></li>
+          <li><a href="#">Events Archive</a></li>
+          <li><a href="#">Industry Insights</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-accordion">
+      <!-- Accordion content (same as before) -->
+      <div class="accordion-item">
+        <button class="accordion-toggle">Sitemap <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-toggle">Legal & Policies <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="terms.html">Terms and Conditions</a></li>
+            <li><a href="membership.html">Club Membership</a></li>
+            <li><a href="rules.html">Rules & Regulations</a></li>
+            <li><a href="join.html">Join Us</a></li>
+            <li><a href="cookies-policy.html">Cookies Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-toggle">Collaborate With Us <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="#">Consulting Opportunities</a></li>
+            <li><a href="#">Become a Partner</a></li>
+            <li><a href="#">Collaborate on Projects</a></li>
+            <li><a href="#">Internships</a></li>
+            <li><a href="#">Job Openings</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-toggle">Knowledge Hub <span class="material-icons arrow">expand_more</span></button>
+        <div class="accordion-content">
+          <ul>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">Consulting Resources</a></li>
+            <li><a href="#">Training Materials</a></li>
+            <li><a href="#">Events Archive</a></li>
+            <li><a href="#">Industry Insights</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p>&copy; 2025 Soyth Club. All Rights Reserved.</p>
+  </footer>
+
+  <!-- JS Scripts -->
+  <script src="js/js.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+  <!-- Firebase (v8 compatibility for simplicity) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  
+  <script>
+    // Initialize Firebase (replace with your actual Firebase config)
+    var firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+
+    // Initialize FullCalendar once the DOM is ready
+    document.addEventListener("DOMContentLoaded", function() {
+      // Render the calendar
+      var calendarEl = document.getElementById("calendar");
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: "dayGridMonth",
+        headerToolbar: {
+          left: "prev,next today",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay"
+        },
+        events: [] // we will load events from Firebase below
+      });
+      calendar.render();
+
+      // Fetch events from Firestore (assuming a collection named "events")
+      db.collection("events").get().then((querySnapshot) => {
+        let events = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          // Ensure your Firestore document has at least title and start (and optionally end)
+          events.push({
+            title: data.title,
+            start: data.start, // e.g. "2025-04-15T10:00:00"
+            end: data.end      // optional: "2025-04-15T12:00:00"
+          });
+        });
+        // Add fetched events to the calendar
+        calendar.addEventSource(events);
+      }).catch((error) => {
+        console.error("Error fetching events: ", error);
+      });
+    });
+    
+    // Load additional sections as before (for example, events-section)
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("html/sections/events-section.html") 
+      .then(response => response.text())
+      .then(data => {
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = data;
+        let eventsSection = tempDiv.querySelector(".about-section");
+        if (eventsSection) {
+          document.getElementById("events-section").appendChild(eventsSection);
+        }
+      })
+      .catch(error => console.error("Error loading the section:", error));
+    });
+  </script>
+</body>
+</html>
