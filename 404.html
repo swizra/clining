@@ -151,9 +151,9 @@
       .then(data => {
         let tempDiv = document.createElement("div");
         tempDiv.innerHTML = data;
-        let 404Section = tempDiv.querySelector(".about-section");
-        if (404Section) {
-          document.getElementById("404-section").appendChild(404Section);
+        let NotSection = tempDiv.querySelector(".about-section");
+        if (NotSection) {
+          document.getElementById("404-section").appendChild(NotSection);
         }
       })
       .catch(error => console.error("Error loading the section:", error));
