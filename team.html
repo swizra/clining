@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Team - Soyth</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
@@ -40,63 +39,7 @@
       </div>
     </nav>
   </header> 
-
-  <section class="about-section" data-aos="fade-up">
-    <h1 data-aos="fade-up">Team</h1>
-    <p data-aos="fade-up">Meet our dedicated team of professionals who are driving our success. Each team member brings unique skills and expertise to the table, contributing to our mission and values.</p>
-    
-     <div class="events-grid">
-    <!-- Team Member 1 -->
-    <div class="event-item" data-aos="fade-up" data-aos-delay="100">
-      <img src="person1.jpeg" alt="Team Member 1">
-      <div class="event-info">
-        <h2>John Doe</h2>
-        <p>CEO</p>
-      </div>
-    </div>
-    <!-- Team Member 2 -->
-    <div class="event-item" data-aos="fade-up" data-aos-delay="200">
-      <img src="person2.jpeg" alt="Team Member 2">
-      <div class="event-info">
-        <h2>Daniel Bondar</h2>
-          <p>CFO</p>
-      </div>
-    </div>
-    <!-- Team Member 3 -->
-    <div class="event-item" data-aos="fade-up" data-aos-delay="300">
-      <img src="person3.jpeg" alt="Team Member 3">
-      <div class="event-info">
-        <h2>Michael Johnson</h2>
-        <p>Lead Developer</p>
-      </div>
-    </div>
-    <!-- Team Member 4 -->
-    <div class="event-item" data-aos="fade-up" data-aos-delay="400">
-      <img src="person4.jpeg" alt="Team Member 4">
-      <div class="event-info">
-        <h2>Amy Brown</h2>
-        <p>HR Manager</p>
-      </div>
-    </div>
-    <!-- Team Member 5 -->
-    <div class="event-item" data-aos="fade-up" data-aos-delay="500">
-      <img src="person5.jpeg" alt="Team Member 5">
-      <div class="event-info">
-        <h2>David Wilson</h2>
-        <p>Finance Lead</p>
-      </div>
-    </div>
-    <!-- Team Member 6 -->
-    <div class="event-item" data-aos="fade-up" data-aos-delay="600">
-      <img src="person6.jpeg" alt="Team Member 6">
-      <div class="event-info">
-        <h2>Sarah Lee</h2>
-        <p>Operations Manager</p>
-      </div>
-    </div>
-  </div>
-</section>
-
+<div id="team-section"></div>
   <footer id="contact">
     <div class="footer-columns">
       <div class="footer-section">
@@ -109,7 +52,6 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Legal & Policies</h3>
         <ul>
@@ -120,7 +62,6 @@
           <li><a href="cookies-policy.html">Cookies Policy</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Collaborate With Us</h3>
         <ul>
@@ -131,7 +72,6 @@
           <li><a href="#">Job Openings</a></li>
         </ul>
       </div>
-
       <div class="footer-section">
         <h3>Knowledge Hub</h3>
         <ul>
@@ -143,7 +83,6 @@
         </ul>
       </div>
     </div>
-
     <div class="footer-accordion">
       <div class="accordion-item">
         <button class="accordion-toggle">Sitemap <span class="material-icons arrow">expand_more</span></button>
@@ -157,7 +96,6 @@
           </ul>
         </div>
       </div>
-
       <div class="accordion-item">
         <button class="accordion-toggle">Legal & Policies <span class="material-icons arrow">expand_more</span></button>
         <div class="accordion-content">
@@ -170,7 +108,6 @@
           </ul>
         </div>
       </div>
-
       <div class="accordion-item">
         <button class="accordion-toggle">Collaborate With Us <span class="material-icons arrow">expand_more</span></button>
         <div class="accordion-content">
@@ -183,7 +120,6 @@
           </ul>
         </div>
       </div>
-
       <div class="accordion-item">
         <button class="accordion-toggle">Knowledge Hub <span class="material-icons arrow">expand_more</span></button>
         <div class="accordion-content">
@@ -197,74 +133,22 @@
         </div>
       </div>
     </div>
-
     <p>&copy; 2025 Soyth Club. All Rights Reserved.</p>
   </footer>
-
+ <script src="js/js.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, easing: 'ease-out', once: true });
-
-    const burger = document.getElementById('burger');
-    const navLinks = document.getElementById('navLinks');
-    burger.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-active');
-      burger.classList.toggle('toggle');
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-      const accordions = document.querySelectorAll('.accordion-toggle');
-      accordions.forEach(accordion => {
-        accordion.addEventListener('click', function() {
-          const content = this.nextElementSibling;
-          const arrow = this.querySelector('.arrow');
-
-          if (content.style.height === "0px" || !content.style.height) {
-            content.style.height = `${content.scrollHeight}px`;
-            arrow.textContent = "expand_less";
-          } else {
-            content.style.height = "0px";
-            arrow.textContent = "expand_more";
-          }
-        });
-      });
-    });
-
-    document.getElementById('searchIcon').addEventListener('click', function() {
-      const searchInput = document.getElementById('searchInput');
-      searchInput.classList.toggle('active');
-      searchInput.focus();
-    });
-
-    function searchOnPage() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const elementsToSearch = document.querySelectorAll('p, h1, h2, h3, li');
-      elementsToSearch.forEach(element => {
-        const textContent = element.textContent.toLowerCase();
-        if (textContent.includes(searchTerm) && searchTerm.trim() !== "") {
-          element.classList.add('highlight');
-        } else {
-          element.classList.remove('highlight');
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      fetch("html/sections/team-section.html") 
+      .then(response => response.text())
+      .then(data => {
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = data;
+        let teamSection = tempDiv.querySelector(".about-section");
+        if (teamSection) {
+          document.getElementById("team-section").appendChild(teamSection);
         }
-      });
-    }
-  </script>
-<script>
-/*
-window.addEventListener("scroll", function () {
-    var logo = document.querySelector(".logo");
-    var logoContainer = document.getElementById("logo");
-
-    if (window.scrollY > 50) { 
-        logo.classList.add("transparent");
-        logoContainer.classList.add("transparent");
-    } else {
-        logo.classList.remove("transparent");
-        logoContainer.classList.remove("transparent");
-    }
-});
-*/
+      })
+      .catch(error => console.error("Error loading the section:", error));
+  });
 </script>
-
-</body>
-</html>
