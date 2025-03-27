@@ -236,54 +236,22 @@
 
     <p>&copy; 2025 Soyth Club. All Rights Reserved.</p>
   </footer>
-
+ <script src="js/js.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, easing: 'ease-out', once: true });
-
-    const burger = document.getElementById('burger');
-    const navLinks = document.getElementById('navLinks');
-    burger.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-active');
-      burger.classList.toggle('toggle');
-    });
-
-    document.addEventListener("DOMContentLoaded", function() {
-      const accordions = document.querySelectorAll('.accordion-toggle');
-      accordions.forEach(accordion => {
-        accordion.addEventListener('click', function() {
-          const content = this.nextElementSibling;
-          const arrow = this.querySelector('.arrow');
-
-          if (content.style.height === "0px" || !content.style.height) {
-            content.style.height = `${content.scrollHeight}px`;
-            arrow.textContent = "expand_less";
-          } else {
-            content.style.height = "0px";
-            arrow.textContent = "expand_more";
-          }
-        });
-      });
-    });
-
-    document.getElementById('searchIcon').addEventListener('click', function() {
-      const searchInput = document.getElementById('searchInput');
-      searchInput.classList.toggle('active');
-      searchInput.focus();
-    });
-
-    function searchOnPage() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const elementsToSearch = document.querySelectorAll('p, h1, h2, h3, li');
-      elementsToSearch.forEach(element => {
-        const textContent = element.textContent.toLowerCase();
-        if (textContent.includes(searchTerm) && searchTerm.trim() !== "") {
-          element.classList.add('highlight');
-        } else {
-          element.classList.remove('highlight');
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      fetch("html/sections/resources-section.html") 
+      .then(response => response.text())
+      .then(data => {
+        let tempDiv = document.createElement("div");
+        tempDiv.innerHTML = data;
+        let resourcesSection = tempDiv.querySelector(".about-section");
+        if (resourcesSection) {
+          document.getElementById("resources-section").appendChild(resourcesSection);
         }
-      });
-    }
-  </script>
+      })
+      .catch(error => console.error("Error loading the section:", error));
+  });
+</script>
 </body>
 </html>
