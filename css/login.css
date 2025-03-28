@@ -53,6 +53,7 @@
 #emailInput,
 #passwordInput {
   width: 100%;
+    paddint-right: 2rem;
   padding: 0.75rem 1rem;
   border-radius: 30px;
   border: 1px solid var(--border-color);
@@ -60,9 +61,6 @@
   color: var(--text-color);
   font-size: 1rem;
   transition: border-color 0.3s, background-color 0.3s;
-}
-#passwordInput {
-  paddint-right: 2rem;
 }
 
 #emailInput:focus,
