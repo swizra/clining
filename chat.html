@@ -278,8 +278,7 @@ function loadMessages() {
         chatInfoPanel.style.display = (chatInfoPanel.style.display === 'block') ? 'none' : 'block';
       });
     }
-  </script>
-  <script>
+
     document.getElementById('deleteChatBtn').addEventListener('click', function() {
   if (confirm('Are you sure you want to delete all messages in this chat?')) {
     db.ref('messages').orderByChild('room').equalTo(currentRoom).once('value', snapshot => {
@@ -290,25 +289,19 @@ function loadMessages() {
     alert('Chat deleted!');
   }
 });
-  </script>
-  <script>
+
     function goToSettings() {
   window.location.href = 'user-settings.html'; 
 }
-  </script>
-  <script>
+
     let darkMode = false;  // Default theme (light)
 document.getElementById('themeToggleBtn').addEventListener('click', function() {
   document.body.classList.toggle('dark-theme');
   darkMode = !darkMode;
   this.innerHTML = `<span class="material-icons">${darkMode ? 'light_mode' : 'dark_mode'}</span> Toggle Theme`;
 });
-  </script>
-  <script>
-    <script>
-  // Function to get the color class based on the first character.
-  function getAvatarColor(displayName) {
-    // Get the first character and convert it to lowercase
+
+    function getAvatarColor(displayName) {
     const firstChar = displayName.trim()[0].toLowerCase();
 
     // Define five color groups.
