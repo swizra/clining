@@ -201,6 +201,13 @@ header {
   justify-content: flex-end;
 }
 
+header {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .message {
   max-height: calc(100% - 40px);
   display: flex;
@@ -428,9 +435,3 @@ header {
     flex-grow: 1; 
 }
 
-header {
-    display: flex;
-    align-items: center; 
-    justify-content: space-between;
-    padding: 10px;
-}
