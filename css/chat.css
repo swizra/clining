@@ -310,9 +310,8 @@ header {
 .chat-input-area {
   position: fixed;
   margin: 0;
-  bottom: 0;
   right: 0;
-  left: 0:
+  left: 0;
   padding: 0;
   width: 100vw;
   background: none;
@@ -323,21 +322,20 @@ header {
 
 .chat-input-area input {
   flex: 1;
-  font-size: 0.7rem;
-  padding: 12px 15px; 
+  bottom: 20px;
+  font-size: 0.9rem;
+  padding: 15px 18px; /* Increase padding for more height */
   border-radius: 12px 12px 0 0;
-  border: 1px solid var(--border-color);
   background: var(--input-bg);
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
   color: var(--text-color);
-  min-height: 50px;
-  resize: none;
-  overflow-y: hidden;
-  max-height: 30vh;
-  line-height: 1.5;
-  margin: 0; /* No margin */
-  width: 100%; 
+  min-height: 60px;
+  max-height: 35vh;
+  line-height: 1.6; 
+  margin: 0;
+  width: 100%;
 }
+
 
 .chat-input-area input:focus {
   outline: none;           
