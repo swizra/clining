@@ -140,7 +140,7 @@ header {
   gap: 10px;
   padding: 8px;
   margin-bottom: 10px;
-  border-radius: 15px;
+  border-radius: 50%;
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -167,38 +167,6 @@ header {
   flex: 1;
   margin-top: 60px;
   padding: 20px;
-}
-
-.auth-container input {
-  padding: 10px;
-  margin: 5px 0;
-  width: 250px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  background: var(--input-bg);
-  color: var(--text-color);
-}
-
-.auth-container button {
-  background: var(--btn-bg);
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 5px;
-  transition: background 0.3s;
-}
-
-.auth-container button:hover {
-  background: var(--btn-hover);
-}
-
-.toggle-auth {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  color: var(--accent-color);
 }
 
 .main-container {
@@ -324,7 +292,7 @@ header {
   flex: 1;
   padding: 10px 15px;
   padding-right: 40px;
-  border-radius: 10px;
+  border-radius: 50%;
   border: 1px solid var(--border-color);
   background: none;
   color: var(--text-color);
