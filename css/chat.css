@@ -457,7 +457,7 @@ header {
 }
 
 .message.outgoing .timestamp {
-  position: relative;
+  position: fixed;
   font-size: var(--timestamp-font-size);
   right: -60px;
   opacity: 1;
@@ -465,7 +465,7 @@ header {
 .message.incoming .timestamp {
   position: relative;
   font-size: var(--timestamp-font-size);
-  right: 10px;
+  right: -100%;
   opacity: 1;
 }
 .timestamp.visible {
