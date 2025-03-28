@@ -121,14 +121,14 @@
         loadMessages();
       } else {
         // User is not logged in: redirect to chat.html (login page).
-        window.location.href = "chat.html";
+        window.location.href = "login.html";
       }
     });
 
     function logoutUser() {
       auth.signOut();
       // Optionally, you might want to redirect the user after logout.
-      window.location.href = "chat.html";
+      window.location.href = "login.html";
     }
 
     function sendMessage() {
