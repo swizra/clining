@@ -166,57 +166,53 @@
         scrollToBottom();
       }
     }
-function loadMessages() {
-  chatHeader.textContent =
-    document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
-  db.ref('messages')
-    .orderByChild('timestamp')
-    .on('value', snapshot => {
-      chatMessages.innerHTML = '';
-      snapshot.forEach(childSnapshot => {
-        const msg = childSnapshot.val();
-        if (msg.room === currentRoom) {
-          const msgDiv = document.createElement('div');
-          const isOutgoing = msg.uid === auth.currentUser.uid;
-          msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+    function loadMessages() {
+      chatHeader.textContent =
+        document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+      db.ref('messages')
+        .orderByChild('timestamp')
+        .on('value', snapshot => {
+          chatMessages.innerHTML = '';
+          snapshot.forEach(childSnapshot => {
+            const msg = childSnapshot.val();
+            if (msg.room === currentRoom) {
+              const msgDiv = document.createElement('div');
+              const isOutgoing = msg.uid === auth.currentUser.uid;
+              msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
 
-          // Only create and append the avatar if the message is not outgoing.
-          if (!isOutgoing) {
-            const avatar = document.createElement('div');
-            avatar.classList.add('avatar');
-            const avatarColorClass = getAvatarColor(msg.displayName);
-            avatar.classList.add(avatarColorClass);
-            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
-            msgDiv.appendChild(avatar);
-          }
+              if (!isOutgoing) {
+                const avatar = document.createElement('div');
+                avatar.classList.add('avatar');
+                const avatarColorClass = getAvatarColor(msg.displayName);
+                avatar.classList.add(avatarColorClass);
+                avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+                msgDiv.appendChild(avatar);
+              }
 
-          // Create message bubble with text and timestamp.
-          const bubble = document.createElement('div');
-          bubble.classList.add('bubble');
+              const bubble = document.createElement('div');
+              bubble.classList.add('bubble');
 
-          const messageText = document.createElement('div');
-          messageText.classList.add('message-text');
-          messageText.textContent = msg.text;
+              const messageText = document.createElement('div');
+              messageText.classList.add('message-text');
+              messageText.textContent = msg.text;
 
-          const time = document.createElement('div');
-          time.classList.add('timestamp');
-          const date = new Date(msg.timestamp);
-          time.textContent = date.toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit'
+              const time = document.createElement('div');
+              time.classList.add('timestamp');
+              const date = new Date(msg.timestamp);
+              time.textContent = date.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+              });
+
+              bubble.appendChild(messageText);
+              msgDiv.appendChild(bubble);
+              msgDiv.appendChild(time); // Append timestamp to message container
+              chatMessages.appendChild(msgDiv);
+            }
           });
-
-          bubble.appendChild(messageText);
-          msgDiv.appendChild(bubble);
-          bubble.appendChild(time);
-          chatMessages.appendChild(msgDiv);
-        }
-      });
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    });
-}
-
-
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+    }
     function selectRoom(room, element) {
       currentRoom = room;
       document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
