@@ -28,7 +28,7 @@ html, body {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #121212;
+    --bg-color: black;
     --text-color: #e0e0e0;
     --header-bg: rgba(18, 18, 18, 0.95);
     --border-color: #333;
