@@ -5,20 +5,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const today = new Date();
+    const currentMonth = today.toLocaleString('default', { month: 'long' });
+    const currentYear = today.getFullYear();
 
-    const event1Date = new Date(today);
-    event1Date.setDate(today.getDate() + 14);
-    document.getElementById("event-date-1").querySelector("span").textContent = formatDate(event1Date);
+    document.getElementById("current-month-year").textContent = `${currentMonth} ${currentYear}`;
 
-    const event2Date = new Date(today);
-    event2Date.setDate(today.getDate() + 8);
-    document.getElementById("event-date-2").querySelector("span").textContent = formatDate(event2Date);
+    const eventDates = [7, 14, 20, 26];
 
-    const event3Date = new Date(today);
-    event3Date.setDate(today.getDate() + 7);
-    document.getElementById("event-date-3").querySelector("span").textContent = formatDate(event3Date);
-
-    const event4Date = new Date(today);
-    event4Date.setDate(today.getDate() + 15);
-    document.getElementById("event-date-4").querySelector("span").textContent = formatDate(event4Date);
+    for (let i = 0; i < eventDates.length; i++) {
+        const eventDate = new Date(currentYear, today.getMonth(), eventDates[i]);
+        document.getElementById(`event-date-${i + 1}`).querySelector("span").textContent = formatDate(eventDate);
+    }
 });
