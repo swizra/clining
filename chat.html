@@ -73,7 +73,7 @@
       </div>
     </div>
     <div class="chat-input-area">
-      <input type="text" id="chatInput" placeholder="Message" onkeydown="if(event.key==='Enter') sendMessage()" />
+      <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
       <button class="sendMessageBtn" onclick="sendMessage()">
       <span class="material-symbols-outlined">
       send
@@ -166,48 +166,6 @@
         scrollToBottom();
       }
     }
-let touchStartX = 0; // To store the starting X coordinate of the touch
-let touchEndX = 0; // To store the ending X coordinate of the touch
-
-// Function to detect swipe gestures
-function handleSwipeGesture(event) {
-  // Get the touch position on the X axis
-  touchEndX = event.changedTouches[0].screenX;
-
-  // Check if the swipe was from right to left (a negative change in X)
-  if (touchStartX - touchEndX > 50) {  // 50px threshold for swipe recognition
-    revealTimestamps();
-  }
-}
-
-function revealTimestamps() {
-  const chatMessages = document.getElementById('chatMessages');
-  const timestamps = document.querySelectorAll('.timestamp');
-
-  // Check if chat has already been extended
-  if (!chatMessages.classList.contains('extended')) {
-    // Extend chat by 60px to the right
-    chatMessages.style.width = `${chatMessages.offsetWidth + 60}px`;
-    chatMessages.classList.add('extended');
-
-    // Reveal timestamps with a slight delay
-    timestamps.forEach((timestamp) => {
-      setTimeout(() => {
-        timestamp.classList.add('visible');
-      }, 100);
-    });
-  }
-}
-
-
-// Add event listeners for touchstart and touchend to detect swipes
-document.addEventListener('touchstart', (event) => {
-  touchStartX = event.touches[0].screenX; // Record the starting touch point
-});
-
-document.addEventListener('touchend', handleSwipeGesture);
-
-// Function to load messages
 function loadMessages() {
   chatHeader.textContent =
     document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
@@ -248,7 +206,6 @@ function loadMessages() {
             minute: '2-digit'
           });
 
-          // Append message and timestamp
           bubble.appendChild(messageText);
           bubble.appendChild(time);
           msgDiv.appendChild(bubble);
