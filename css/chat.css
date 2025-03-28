@@ -406,6 +406,7 @@ header {
   border-radius: 12px 12px 0 12px;
 }
 .incoming .bubble {
+  background: var(--input-bg);
   position: relative;
 }
 .chat-messages {
