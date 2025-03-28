@@ -286,6 +286,8 @@ header {
 }
 
 .timestamp {
+  padding-bottom:4px;
+  margin-bottom:4px;
   font-size: 0.7rem;
   color: #999;
   position: absolute; 
