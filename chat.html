@@ -359,6 +359,27 @@ document.addEventListener('click', function(e) {
     }
   }
 });
+    let menuTouchStart = 0;
+let menuSwipeThreshold = 50; // minimum swipe distance in px
+let leftEdgeZone = 20; // only start a swipe if touch starts within the first 20px
+
+document.addEventListener('touchstart', function(e) {
+  // Check if the touch started near the left edge
+  if (e.touches[0].clientX < leftEdgeZone) {
+    menuTouchStart = e.touches[0].clientX;
+  }
+});
+
+document.addEventListener('touchend', function(e) {
+  let menuTouchEnd = e.changedTouches[0].clientX;
+  let diff = menuTouchEnd - menuTouchStart;
+
+  // If the swipe is long enough and goes right, open the contacts menu.
+  if (menuTouchStart < leftEdgeZone && diff > menuSwipeThreshold) {
+    contactsMenu.classList.add('open');
+  }
+});
+
   </script>
 </body>
 </html>
