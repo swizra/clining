@@ -421,3 +421,16 @@ header {
   border-radius: 12px;
   cursor: pointer;
 } 
+.logo-container {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    flex-grow: 1; 
+}
+
+header {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    padding: 10px;
+}
