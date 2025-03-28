@@ -38,7 +38,7 @@ html, body {
     --footer-text: #aaa;
     --logo-color: #e0e0e0;
     --outcoming-message: none;
-    --border-color-info-panel: none;
+    --border-color-info-panel: #333;
   }
 }
 
@@ -116,7 +116,7 @@ header {
   transition: transform 0.3s ease;
   z-index: 1100;
   overflow-y: auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -386,7 +386,7 @@ header {
   border: 1px solid var(--border-color-info-panel);
   border-radius: 12px;
   padding: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 1100;
   font-size: 0.9rem;
   backdrop-filter: blur(10px);
@@ -396,7 +396,7 @@ header {
 
 .chatInfoPanel:hover {
   border-color: var(--accent-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .chatInfoPanel #chatInfoContent {
