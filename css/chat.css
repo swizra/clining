@@ -23,7 +23,6 @@ html, body {
   --timestamp-color: #999;
   --timestamp-font-size: 0.7rem;
   --border-color-info-panel: #ddd;
-  --incoming-message: rgba(255, 255, 255, 0.95);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,7 +44,6 @@ html, body {
     --timestamp-color: #aaa;
     --timestamp-font-size: 0.7rem;
     --border-color-info-panel: #333;
-    --incoming-message: rgba(18, 18, 18, 0.98);
   }
 }
 
@@ -399,7 +397,6 @@ header {
 }
 
 .message.incoming .bubble {
-  background: var(--input-bg);
   color: var(--text-color);
   border-radius: 12px 12px 12px 0;
 }
@@ -431,7 +428,6 @@ header {
 
 .message.incoming {
   flex-direction: row;
-  background: var(--incoming-message);
   border: none;
 }
 
