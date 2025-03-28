@@ -13,6 +13,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <link rel="stylesheet" href="css/css.css">
   <link rel="stylesheet" href="css/login.css">
+  <style>
+    /* Optional inline styles for the password toggle */
+    .password-container {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
 
@@ -51,8 +65,9 @@
       <div class="form-group">
         <input type="email" id="emailInput" placeholder="Email" required>
       </div>
-      <div class="form-group">
+      <div class="form-group password-container">
         <input type="password" id="passwordInput" placeholder="Password" required>
+        <span class="material-icons toggle-password" id="togglePassword">visibility</span>
       </div>
       <button type="submit" id="loginButton" class="btn-primary">Login</button>
       <p id="errorMsg"></p>
@@ -119,6 +134,16 @@
           });
       }
     }
+
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('passwordInput');
+
+    togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+    });
   </script>
 
   <footer id="contact">
