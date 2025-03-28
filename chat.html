@@ -65,8 +65,6 @@ side_navigation
       </li>
     </ul>
   </nav>
-
-  <!-- Authentication Container -->
   <div class="auth-container" id="authContainer">
     <h2 id="authTitle">Login</h2>
     <input type="email" id="emailInput" placeholder="Email" />
@@ -75,12 +73,9 @@ side_navigation
     <div class="toggle-auth" onclick="toggleAuth()">Don't have an account? Register here.</div>
     <div id="authError" style="color: red; margin-top:10px;"></div>
   </div>
-
-  <!-- Chat Container -->
   <div class="main-container" id="chatContainer">
     <div class="chat-header" id="chatHeader">White</div>
     <div class="chat-messages" id="chatMessages">
-      <!-- Chat messages will load here -->
     </div>
     <div class="chat-input-area">
       <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
@@ -89,12 +84,9 @@ side_navigation
       </button>
     </div>
   </div>
-
   <div id="scrollToBottomArrow" class="scroll-to-bottom">
     <span class="material-icons">keyboard_arrow_down</span>
   </div>
-
-  <!-- Firebase & App Logic -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
@@ -238,7 +230,7 @@ function selectRoom(room, element) {
 
   const roomName = element.querySelector('span').textContent;
   chatHeader.textContent = roomName;
-  logo.textContent = roomName; // 👈 Swap logo
+  logo.textContent = roomName; 
 
   loadMessages();
   scrollToBottom();
