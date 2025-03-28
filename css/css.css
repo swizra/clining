@@ -783,19 +783,18 @@ footer .footer-divider {
   .current-month-year { 
       display:none;
   }
-.register-btn {
-    background-color: var(--primary-color, #007bff);
-    color: var(--text-light, #fff);
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: auto;
-  }
+.register-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 15px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-left: 20px;
+}
 
-  .register-btn:hover {
-    background-color: var(--primary-hover, #0056b3);
-  }
+.register-button:hover {
+  background-color: var(--secondary-color);
+}
