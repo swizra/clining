@@ -21,7 +21,7 @@
 .auth-container h2 {
   margin-bottom: 1.5rem;
   color: var(--text-color);
-  font-family: 'Inter Display', serif;
+  font-family: 'Inter', serif;
   position: relative;
 }
 
