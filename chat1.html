@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Soyth Chat</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <link rel="stylesheet" href="css/chat.css" >
+</head>
+<body>
+<header>
+    <button class="menu-btn" onclick="toggleMenu()">
+        <span class="material-symbols-outlined">side_navigation</span>
+    </button>
+    
+    <div class="logo-container">
+        <a href="#" class="logo" id="chatInfoBtn">Soyth</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+    </div>
+
+    <button class="btn-logout" onclick="logoutUser()">
+        <span class="material-symbols-outlined">logout</span>
+    </button>
+</header>
+  <nav class="contacts-menu" id="contactsMenu">
+    <h2>Global Chats</h2>
+    <ul>
+      <li class="active" onclick="selectRoom('globalChat1', this)">
+        <img src="assets/images/chat/global1.png" alt="Global Chat 1" />
+        <span>White</span>
+      </li>
+      <li onclick="selectRoom('globalChat2', this)">
+        <img src="assets/images/chat/global2.png" alt="Global Chat 2" />
+        <span>Black</span>
+      </li>
+      <li onclick="selectRoom('globalChat3', this)">
+        <img src="assets/images/chat/global3.png" alt="Global Chat 3" />
+        <span>Blue</span>
+      </li>
+      <li onclick="selectRoom('globalChat4', this)">
+        <img src="assets/images/chat/global4.png" alt="Global Chat 4" />
+        <span>Silver</span>
+      </li>
+      <li onclick="selectRoom('globalChat5', this)">
+        <img src="assets/images/chat/global5.png" alt="Global Chat 5" />
+        <span>Yellow</span>
+      </li>
+      <li onclick="selectRoom('globalChat6', this)">
+        <img src="assets/images/chat/global6.png" alt="Global Chat 6" />
+        <span>Green</span>
+      </li>
+      <li onclick="selectRoom('globalChat7', this)">
+        <img src="assets/images/chat/global7.png" alt="Global Chat 7" />
+        <span>Violet</span>
+      </li>
+      <li onclick="selectRoom('globalChat8', this)">
+        <img src="assets/images/chat/global8.png" alt="Global Chat 8" />
+        <span>Pink</span>
+      </li>
+    </ul>
+  </nav>
+  <div class="main-container" id="chatContainer">
+    <div class="chat-header" id="chatHeader">White</div>
+    <div class="chat-messages" id="chatMessages">
+      <div id="scrollToBottomArrow" class="scroll-to-bottom">
+<span class="material-icons" style="margin-left: 10px; margin-right: 5px;">settings</span>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button class="sendMessageBtn" onclick="sendMessage()">
+      <span class="material-symbols-outlined">
+      send
+      </span>
+      </button>
+    </div>
+  </div>
+
+<div id="chatInfoPanel" class="chatInfoPanel">
+  <div id="chatInfoContent"></div>
+  <div class="chatInfoButtons">
+    <button id="deleteChatBtn">
+      <span class="material-icons">delete</span> Delete Chat
+    </button>
+    <button id="settingsBtn" onclick="goToSettings()">
+      <span class="material-icons">settings</span> Settings
+    </button>
+    <button id="themeToggleBtn">
+      <span class="material-icons">dark_mode</span> Toggle Theme
+    </button>
+    <button id="archiveChatBtn">
+      <span class="material-icons">archive</span> Archive Chat
+    </button>
+    <button id="infoBtn">
+      <span class="material-icons">info</span> Chat Info
+    </button>
+  </div>
+</div>
+
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
+      authDomain: "soyth-chat.firebaseapp.com",
+      projectId: "soyth-chat",
+      storageBucket: "soyth-chat.firebasestorage.app",
+      messagingSenderId: "443722955446",
+      appId: "1:443722955446:web:6745ef0fa305673bb88417",
+      measurementId: "G-H7FQJVEW8Q",
+      databaseURL: "https://soyth-chat-default-rtdb.europe-west1.firebasedatabase.app/"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+    const logo = document.querySelector('.logo');
+    const chatContainer = document.getElementById('chatContainer');
+    const chatHeader = document.getElementById('chatHeader');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const contactsMenu = document.getElementById('contactsMenu');
+
+    let currentRoom = 'globalChat1';
+
+    function toggleMenu() {
+      contactsMenu.classList.toggle('open');
+    }
+
+    // Redirect if user is not logged in
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        // User is logged in: show chat interface and load messages.
+        chatContainer.style.display = 'flex';
+        loadMessages();
+      } else {
+        // User is not logged in: redirect to chat.html (login page).
+        window.location.href = "login.html";
+      }
+    });
+
+    function logoutUser() {
+      auth.signOut();
+      // Optionally, you might want to redirect the user after logout.
+      window.location.href = "login.html";
+    }
+
+    function sendMessage() {
+      const messageText = chatInput.value.trim();
+      if (messageText !== '') {
+        db.ref('messages').push({
+          text: messageText,
+          uid: auth.currentUser.uid,
+          displayName: auth.currentUser.displayName || auth.currentUser.email,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+          room: currentRoom
+        });
+
+        chatInput.value = '';
+        chatInput.style.height = '40px';
+        scrollToBottom();
+      }
+    }
+function loadMessages() {
+  chatHeader.textContent =
+    document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+  db.ref('messages')
+    .orderByChild('timestamp')
+    .on('value', snapshot => {
+      chatMessages.innerHTML = '';
+      snapshot.forEach(childSnapshot => {
+        const msg = childSnapshot.val();
+        if (msg.room === currentRoom) {
+          const msgDiv = document.createElement('div');
+          const isOutgoing = msg.uid === auth.currentUser.uid;
+          msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+
+          // Only create and append the avatar if the message is not outgoing.
+          if (!isOutgoing) {
+            const avatar = document.createElement('div');
+            avatar.classList.add('avatar');
+            const avatarColorClass = getAvatarColor(msg.displayName);
+            avatar.classList.add(avatarColorClass);
+            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+            msgDiv.appendChild(avatar);
+          }
+
+          // Create message bubble with text and timestamp.
+          const bubble = document.createElement('div');
+          bubble.classList.add('bubble');
+
+          const messageText = document.createElement('div');
+          messageText.classList.add('message-text');
+          messageText.textContent = msg.text;
+
+          const time = document.createElement('div');
+          time.classList.add('timestamp');
+          const date = new Date(msg.timestamp);
+          time.textContent = date.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+
+          bubble.appendChild(messageText);
+          bubble.appendChild(time);
+          msgDiv.appendChild(bubble);
+          chatMessages.appendChild(msgDiv);
+        }
+      });
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+}
+
+
+    function selectRoom(room, element) {
+      currentRoom = room;
+      document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
+      element.classList.add('active');
+
+      const roomName = element.querySelector('span').textContent;
+      chatHeader.textContent = roomName;
+      logo.textContent = roomName; 
+
+      loadMessages();
+      scrollToBottom();
+      contactsMenu.classList.remove('open');
+    }
+
+    function scrollToBottom() {
+      const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight;
+      if (!isAtBottom) {
+        document.getElementById('scrollToBottomArrow').style.display = 'block';
+      } else {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+
+    document.getElementById('scrollToBottomArrow').addEventListener('click', function() {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      document.getElementById('scrollToBottomArrow').style.display = 'none';
+    });
+
+    chatInput.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, window.innerHeight * 0.3) + 'px';
+    });
+
+    // --- New Code for Info Panel ---
+    const chatInfoBtn = document.getElementById('chatInfoBtn');
+    const chatInfoPanel = document.getElementById('chatInfoPanel');
+    const chatInfoContent = document.getElementById('chatInfoContent');
+
+    chatInfoBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      showChatInfo();
+    });
+
+    function showChatInfo() {
+      db.ref('messages').orderByChild('timestamp').once('value', snapshot => {
+        let messages = [];
+        snapshot.forEach(child => {
+          const msg = child.val();
+          if (msg.room === currentRoom) {
+            messages.push(msg);
+          }
+        });
+
+        if (messages.length === 0) {
+          chatInfoContent.innerHTML = "No messages in this room.";
+        } else {
+          messages.sort((a, b) => a.timestamp - b.timestamp);
+          const first = new Date(messages[0].timestamp).toLocaleString();
+          const last = new Date(messages[messages.length - 1].timestamp).toLocaleString();
+          chatInfoContent.innerHTML = 
+            "<strong>Messages sent:</strong> " + messages.length + "<br>" +
+            "<strong>First message:</strong> " + first + "<br>" +
+            "<strong>Last message:</strong> " + last;
+        }
+        chatInfoPanel.style.display = (chatInfoPanel.style.display === 'block') ? 'none' : 'block';
+      });
+    }
+
+    document.getElementById('deleteChatBtn').addEventListener('click', function() {
+  if (confirm('Are you sure you want to delete all messages in this chat?')) {
+    db.ref('messages').orderByChild('room').equalTo(currentRoom).once('value', snapshot => {
+      snapshot.forEach(childSnapshot => {
+        childSnapshot.ref.remove();  // Remove each message in the selected room
+      });
+    });
+    alert('Chat deleted!');
+  }
+});
+
+    function goToSettings() {
+  window.location.href = 'user-settings.html'; 
+}
+
+document.getElementById('themeToggleBtn').addEventListener('click', function() {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+
+    // Save theme preference to localStorage
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+    // Update button icon and text
+    this.innerHTML = `<span class="material-icons">${isDark ? 'light_mode' : 'dark_mode'}</span> ${isDark ? 'Light Mode' : 'Dark Mode'}`;
+});
+
+// Apply saved theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        document.getElementById('themeToggleBtn').innerHTML = `<span class="material-icons">light_mode</span> Light Mode`;
+    }
+});
+
+
+    function getAvatarColor(displayName) {
+    const firstChar = displayName.trim()[0].toLowerCase();
+
+    // Define five color groups.
+    if (/[a-r]/.test(firstChar)) {
+      return 'green';
+    } else if (/[s-z]/.test(firstChar)) {
+      return 'blue';
+    } else if (/[0-3]/.test(firstChar)) {
+      return 'orange';
+    } else if (/[4-6]/.test(firstChar)) {
+      return 'red';
+    } else if (/[7-9]/.test(firstChar)) {
+      return 'purple';
+    } else {
+      return 'gray'; // Fallback color if none match
+    }
+  }
+    // Hide chatInfoPanel if click is outside of it and outside of the chatInfoBtn
+document.addEventListener('click', function(e) {
+  // Check if the panel is visible
+  if (chatInfoPanel.style.display === 'block') {
+    // If the clicked element is not within the panel and not the chatInfoBtn
+    if (!chatInfoPanel.contains(e.target) && !chatInfoBtn.contains(e.target)) {
+      chatInfoPanel.style.display = 'none';
+    }
+  }
+});
+document.addEventListener('click', function(e) {
+  // Check if the menu is open (using the "open" class)
+  if (contactsMenu.classList.contains('open')) {
+    // If the clicked element is not within the menu and not the menu button
+    const menuBtn = document.querySelector('.menu-btn');
+    if (!contactsMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+      contactsMenu.classList.remove('open');
+    }
+  }
+});
+  </script>
+</body>
+</html>
