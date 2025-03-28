@@ -81,10 +81,27 @@
     </div>
   </div>
 
-  <!-- Chat Info Panel -->
-  <div id="chatInfoPanel" class="chatInfoPanel">
-    <div id="chatInfoContent"></div>
+<div id="chatInfoPanel" class="chatInfoPanel">
+  <div id="chatInfoContent"></div>
+  <div class="chatInfoButtons">
+    <button id="deleteChatBtn">
+      <span class="material-icons">delete</span> Delete Chat
+    </button>
+    <button id="settingsBtn" onclick="goToSettings()">
+      <span class="material-icons">settings</span> Settings
+    </button>
+    <button id="themeToggleBtn">
+      <span class="material-icons">dark_mode</span> Toggle Theme
+    </button>
+    <button id="archiveChatBtn">
+      <span class="material-icons">archive</span> Archive Chat
+    </button>
+    <button id="infoBtn">
+      <span class="material-icons">info</span> Chat Info
+    </button>
   </div>
+</div>
+
 
   <script>
     const firebaseConfig = {
