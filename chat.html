@@ -11,23 +11,19 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <link rel="stylesheet" href="css/chat.css" >
+  <link rel="stylesheet" href="css/chat.css">
 </head>
 <body>
   <header>
     <button class="menu-btn" onclick="toggleMenu()">
-      <span class="material-symbols-outlined">
-side_navigation
-</span>
+      <span class="material-symbols-outlined">side_navigation</span>
     </button>
-    <!-- Added id="chatInfoBtn" to attach click event; clicking now shows the info panel -->
     <a href="#" class="logo" id="chatInfoBtn">Soyth</a>
     <button class="btn-logout" onclick="logoutUser()">
       <span class="material-icons">logout</span>
     </button>
   </header>
 
-  <!-- Sidebar / Contacts Menu -->
   <nav class="contacts-menu" id="contactsMenu">
     <h2>Global Chats</h2>
     <ul>
@@ -65,12 +61,13 @@ side_navigation
       </li>
     </ul>
   </nav>
+
   <div class="main-container" id="chatContainer">
     <div class="chat-header" id="chatHeader">White</div>
     <div class="chat-messages" id="chatMessages">
-        <div id="scrollToBottomArrow" class="scroll-to-bottom">
-    <span class="material-icons">keyboard_arrow_down</span>
-  </div>
+      <div id="scrollToBottomArrow" class="scroll-to-bottom">
+        <span class="material-icons">keyboard_arrow_down</span>
+      </div>
     </div>
     <div class="chat-input-area">
       <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
@@ -79,15 +76,17 @@ side_navigation
       </button>
     </div>
   </div>
+
   <div id="chatInfoPanel" class="chatInfoPanel">
     <div id="chatInfoContent"></div>
   </div>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
       authDomain: "soyth-chat.firebaseapp.com",
       projectId: "soyth-chat",
-      storageBucket: "soyth-chat.firebasestorage.app",
+      storageBucket: "soyth-chat.appspot.com",
       messagingSenderId: "443722955446",
       appId: "1:443722955446:web:6745ef0fa305673bb88417",
       measurementId: "G-H7FQJVEW8Q",
@@ -97,40 +96,37 @@ side_navigation
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.database();
+
     const logo = document.querySelector('.logo');
-    const authContainer = document.getElementById('authContainer');
     const chatContainer = document.getElementById('chatContainer');
     const chatHeader = document.getElementById('chatHeader');
     const chatMessages = document.getElementById('chatMessages');
     const chatInput = document.getElementById('chatInput');
     const contactsMenu = document.getElementById('contactsMenu');
+    const chatInfoBtn = document.getElementById('chatInfoBtn');
+    const chatInfoPanel = document.getElementById('chatInfoPanel');
+    const chatInfoContent = document.getElementById('chatInfoContent');
 
     let currentRoom = 'globalChat1';
+
+    // Check Authentication
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        loadMessages();
+      }
+    });
+
+    function logoutUser() {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
 
     function toggleMenu() {
       contactsMenu.classList.toggle('open');
     }
-
-
-
-
-function logoutUser() {
-  auth.signOut().then(() => {
-    window.location.href = 'chat.html';
-  });
-}
-
-
-auth.onAuthStateChanged(user => {
-  if (user) {
-    chatContainer.style.display = 'flex';
-    loadMessages();
-  } else {
-    // Redirect to login page
-    window.location.href = 'login.html';
-  }
-});
-
 
     function sendMessage() {
       const messageText = chatInput.value.trim();
@@ -142,10 +138,8 @@ auth.onAuthStateChanged(user => {
           timestamp: firebase.database.ServerValue.TIMESTAMP,
           room: currentRoom
         });
-
         chatInput.value = '';
         chatInput.style.height = '40px';
-
         scrollToBottom();
       }
     }
@@ -193,11 +187,9 @@ auth.onAuthStateChanged(user => {
       currentRoom = room;
       document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
       element.classList.add('active');
-
       const roomName = element.querySelector('span').textContent;
       chatHeader.textContent = roomName;
-      logo.textContent = roomName; 
-
+      logo.textContent = roomName;
       loadMessages();
       scrollToBottom();
       contactsMenu.classList.remove('open');
@@ -222,13 +214,8 @@ auth.onAuthStateChanged(user => {
       this.style.height = Math.min(this.scrollHeight, window.innerHeight * 0.3) + 'px';
     });
 
-    // --- New Code for Info Panel ---
-    const chatInfoBtn = document.getElementById('chatInfoBtn');
-    const chatInfoPanel = document.getElementById('chatInfoPanel');
-    const chatInfoContent = document.getElementById('chatInfoContent');
-
     chatInfoBtn.addEventListener('click', function(e) {
-      e.preventDefault(); // Prevent default href behavior (scroll to top)
+      e.preventDefault();
       showChatInfo();
     });
 
@@ -241,21 +228,28 @@ auth.onAuthStateChanged(user => {
             messages.push(msg);
           }
         });
-
         if (messages.length === 0) {
           chatInfoContent.innerHTML = "No messages in this room.";
         } else {
-          messages.sort((a, b) => a.timestamp - b.timestamp);
-          const first = new Date(messages[0].timestamp).toLocaleString();
-          const last = new Date(messages[messages.length - 1].timestamp).toLocaleString();
-          chatInfoContent.innerHTML = 
-            "<strong>Messages sent:</strong> " + messages.length + "<br>" +
-            "<strong>First message:</strong> " + first + "<br>" +
-            "<strong>Last message:</strong> " + last;
+          messages.sort((a, b) => b.timestamp - a.timestamp);
+          const latestMessage = messages[0];
+          const date = new Date(latestMessage.timestamp);
+          chatInfoContent.innerHTML = `
+            <strong>Room:</strong> ${currentRoom}<br>
+            <strong>Last message:</strong> ${latestMessage.text}<br>
+            <strong>By:</strong> ${latestMessage.displayName}<br>
+            <strong>At:</strong> ${date.toLocaleString()}
+          `;
         }
-        chatInfoPanel.style.display = (chatInfoPanel.style.display === 'block') ? 'none' : 'block';
+        chatInfoPanel.style.display = 'block';
       });
     }
+
+    chatInfoPanel.addEventListener('click', function(e) {
+      if (e.target === chatInfoPanel) {
+        chatInfoPanel.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
