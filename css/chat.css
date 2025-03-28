@@ -428,21 +428,22 @@ header {
   justify-content: flex-end;
 }
 
-.message {
-  position: relative;
-  margin: 5px 0;
-  max-width: 90%;
-}
+ .message {
+      position: relative;
+      min-width: -moz-fit-content;
+      min-width: fit-content;
+      margin: 5px 0;
+      max-width: 90%;
+    }
 
-.message.incoming {
-  flex-direction: row;
-  border: none;
-}
+  .outgoing {
+      margin-left: auto;
+      margin-right: 60px; /* Space for timestamp */
+    }
 
-.message.outgoing {
-  flex-direction: row-reverse;
-  margin-left: auto;
-}
+    .incoming {
+      margin-left: 60px; /* Space for avatar + timestamp */
+    }
 
 .message.outgoing .bubble {
   background: var(--outcoming-message);
