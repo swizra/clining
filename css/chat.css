@@ -401,7 +401,13 @@ header {
   color: var(--text-color);
   border-radius: 12px 12px 0 12px;
 }
-
+.incoming .bubble {
+  position: relative;
+  display: flex;
+  flex-direction: row; /* This ensures message text and timestamp are side by side */
+  justify-content: space-between; /* Distribute space between text and timestamp */
+  align-items: center; /* Center items vertically */
+}
 .chat-messages {
   flex: 1;
   padding: 0 10px 12px;
@@ -440,25 +446,20 @@ header {
 .message{
   position:relative;
 }
-/* Ensure the bubble is the relative container */
-.incoming .bubble {
-  position: relative;
-}
-
 .incoming .timestamp {
   position: absolute;
-  right: -60px; 
+  right: -60px; /* Initially hidden 60px off the right */
   top: 50%;
-  transform: translateY(-50%); 
-  opacity: 0.5; 
-  white-space: nowrap; 
-  transition: right 0.3s ease, opacity 0.3s ease;
+  transform: translateY(-50%); /* Vertically center it */
+  opacity: 0;  /* Initially hidden */
+  white-space: nowrap;  /* Prevent wrapping */
+  transition: right 0.3s ease, opacity 0.3s ease;  /* Smooth slide-in effect */
   font-size: var(--timestamp-font-size);
   color: var(--timestamp-color);
 }
 
-/* When bubble has the 'show-timestamp' class, slide the timestamp in */
-.bubble.show-timestamp .timestamp {
-  right: 10px; /* Moves the timestamp into view */
-  opacity: 1;
+/* When the message is swiped, the timestamp will be shown */
+.bubble.swiped .timestamp {
+  right: 10px; /* Final position when the timestamp is revealed */
+  opacity: 1;  /* Make the timestamp visible */
 }
