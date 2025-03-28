@@ -198,7 +198,7 @@ header {
 .chat-messages {
   flex: 1;
   padding: 0px 20px 12px;
-  padding-bottom: 90px;
+  padding-bottom: 60px;
   overflow-y: auto;
   background: var(--bg-color);
   display: flex;
@@ -214,7 +214,6 @@ header {
 }
 
 .message {
-  max-height: calc(100% - 40px);
   display: flex;
   align-items: flex-end;
   margin: 10px 0;
@@ -226,8 +225,7 @@ header {
 }
 
 .message.outgoing {
-  flex-direction: row-reverse;
-  margin-left: auto;
+  flex-direction: row;
 }
 
 .avatar {
@@ -284,6 +282,8 @@ header {
 }
 
 .message.incoming .bubble {
+  border: none;
+  border-radius: 12px 12px 12px 0;
   background: var(--input-bg);
   color: var(--text-color);
 }
@@ -309,12 +309,14 @@ header {
 
 .message.outgoing .timestamp {
   text-align: right;
+  color: var(--timestamp-color);
   padding-left: 4px;
   padding-right: 4px;
 }
 
 .message.incoming .timestamp {
   text-align: right;
+  color: var(--timestamp-color);
   padding-right: 4px;
   padding-left: 4px;
 }
