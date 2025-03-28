@@ -191,30 +191,45 @@ side_navigation
       }
     }
 
-    function loadMessages() {
-      chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
-      db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
-        chatMessages.innerHTML = '';
-        snapshot.forEach(childSnapshot => {
-          const msg = childSnapshot.val();
-          if(msg.room === currentRoom) {
-            const msgDiv = document.createElement('div');
-            msgDiv.classList.add('message');
-            msgDiv.classList.add(msg.uid === auth.currentUser.uid ? 'outgoing' : 'incoming');
-            const avatar = document.createElement('div');
-            avatar.classList.add('avatar');
-            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            bubble.textContent = msg.text;
-            msgDiv.appendChild(avatar);
-            msgDiv.appendChild(bubble);
-            chatMessages.appendChild(msgDiv);
-          }
-        });
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      });
-    }
+function loadMessages() {
+  chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+  db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
+    chatMessages.innerHTML = '';
+    snapshot.forEach(childSnapshot => {
+      const msg = childSnapshot.val();
+      if (msg.room === currentRoom) {
+        const msgDiv = document.createElement('div');
+        const isOutgoing = msg.uid === auth.currentUser.uid;
+        msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+
+        const avatar = document.createElement('div');
+        avatar.classList.add('avatar');
+        avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+
+        const messageText = document.createElement('div');
+        messageText.classList.add('message-text');
+        messageText.textContent = msg.text;
+
+        const time = document.createElement('div');
+        time.classList.add('timestamp');
+        const date = new Date(msg.timestamp);
+        time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        bubble.appendChild(messageText);
+        bubble.appendChild(time);
+
+        msgDiv.appendChild(avatar);
+        msgDiv.appendChild(bubble);
+        chatMessages.appendChild(msgDiv);
+      }
+    });
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
+}
+
 
 function selectRoom(room, element) {
   currentRoom = room;
