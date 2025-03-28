@@ -180,12 +180,23 @@ function handleSwipeGesture(event) {
   }
 }
 
-// Function to reveal timestamps
 function revealTimestamps() {
+  const chatMessages = document.getElementById('chatMessages');
   const timestamps = document.querySelectorAll('.timestamp');
-  timestamps.forEach((timestamp) => {
-    timestamp.classList.add('visible');
-  });
+
+  // Check if chat has already been extended
+  if (!chatMessages.classList.contains('extended')) {
+    // Extend chat by 60px
+    chatMessages.style.height = `${chatMessages.scrollHeight + 60}px`;
+    chatMessages.classList.add('extended');
+
+    // Reveal timestamps with a slight delay
+    timestamps.forEach((timestamp) => {
+      setTimeout(() => {
+        timestamp.classList.add('visible');
+      }, 100);
+    });
+  }
 }
 
 // Add event listeners for touchstart and touchend to detect swipes
