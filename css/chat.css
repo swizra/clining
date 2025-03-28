@@ -386,7 +386,7 @@ header {
   background-color: #f1f1f1;
   padding: 8px 12px;
   border-radius: 12px;
-  max-width: 90%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -409,7 +409,7 @@ header {
 
 .chat-messages {
   flex: 1;
-  padding: 0px 20px 12px;
+  padding: 0 10px 12px;
   padding-bottom: 55px;
   overflow-y: auto;
   background: var(--bg-color);
