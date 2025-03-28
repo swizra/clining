@@ -286,24 +286,20 @@ header {
 }
 
 .timestamp {
-  padding-bottom:4px;
-  margin-bottom:4px;
   font-size: 0.7rem;
   color: #999;
-  position: absolute; 
-  bottom: 4px; 
-  left: 4px;
+  margin-bottom: 4px;
   white-space: nowrap; 
 }
 
 .message.outgoing .timestamp {
   text-align: right;
-  margin-right: 4px;
+  margin-left: 4px;
 }
 
 .message.incoming .timestamp {
   text-align: right;
-  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .chat-input-area {
