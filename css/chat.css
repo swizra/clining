@@ -374,11 +374,12 @@ header {
 }
 
 .chatInfoPanel {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   max-width: 500px;
   padding: 10px;
-  display: none;
   position: fixed;
-  top: 60px;
+  top: 50px;
   left: 20px;
   right: 20px;
   background: var(--bg-color);
@@ -389,8 +390,7 @@ header {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 1100;
   font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+
   transition: all 0.3s ease;
 }
 
@@ -428,9 +428,9 @@ header {
   cursor: pointer;
 } 
 .logo-container {
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    flex-grow: 1; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  flex-grow: 1; 
 }
 
