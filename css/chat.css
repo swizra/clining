@@ -416,6 +416,8 @@ header {
 }
 
 .chat-messages {
+  overflow-x: auto;
+  overflow-y: auto;
   flex: 1;
   padding: 0 10px 12px;
   padding-bottom: 65px;
@@ -427,8 +429,7 @@ header {
 }
 
 .message {
-  display: flex;
-  align-items: flex-end;
+  position: relative;
   margin: 5px 0;
   max-width: 90%;
 }
@@ -457,10 +458,13 @@ header {
 }
 
 .timestamp {
-  position: relative;
-  font-size: var(--timestamp-font-size);
+  position: absolute;
   right: -60px;
-  opacity: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  color: var(--timestamp-color);
+  white-space: nowrap;
 }
 
 .timestamp.visible {
