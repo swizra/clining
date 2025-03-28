@@ -375,8 +375,20 @@ header {
   font-size: 0.9rem;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+#chatInfoPanel:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 #chatInfoPanel #chatInfoContent {
   line-height: 1.4;
+  color: var(--text-color);
+}
+
+#chatInfoPanel a {
+  color: var(--accent-color);
+  text-decoration: underline;
 }
