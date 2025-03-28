@@ -1,4 +1,11 @@
+html, body {
+  overflow-x: hidden;
+  max-width: 120vw;
+}
 
+* {
+  max-width: 120%;
+}
 
 :root {
   --bg-color: #f9f9f9;
@@ -247,7 +254,7 @@ header {
   right: 0;
   left: 0;
   border: none;
-  top: 0;
+  bottom: 0;
   padding: 0;
   width: 100vw;
   background: none;
@@ -401,7 +408,7 @@ header {
   position: absolute;
   font-size: var(--timestamp-font-size);
   right: -60px;
-  opacity: 1;
+  opacity: 0;
   visibility: hidden;
   transition: right 0.3s ease, opacity 0.3s ease;
 }
