@@ -375,14 +375,9 @@ document.addEventListener('touchend', function(e) {
   let menuTouchEnd = e.changedTouches[0].clientX;
   let diff = menuTouchEnd - menuTouchStart;
 
-  // If the swipe is long enough and goes right, open the contacts menu.
+  // Only open the menu for left-to-right swipe
   if (menuTouchStart < leftEdgeZone && diff > menuSwipeThreshold) {
     contactsMenu.classList.add('open'); // Open the contacts menu on left to right swipe
-  }
-  
-  // If the swipe is long enough and goes left, close the contacts menu.
-  if (menuTouchStart > leftEdgeZone && diff < -menuSwipeThreshold) {
-    contactsMenu.classList.remove('open'); // Close the contacts menu on right to left swipe
   }
 });
 
