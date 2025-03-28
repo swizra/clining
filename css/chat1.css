@@ -468,3 +468,6 @@ header {
   right: -60px;
   opacity: 1;
 }
+#chatMessages {
+  overflow-x: auto;
+}
