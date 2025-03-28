@@ -300,12 +300,26 @@ function loadMessages() {
   window.location.href = 'user-settings.html'; 
 }
 
-    let darkMode = false;  // Default theme (light)
 document.getElementById('themeToggleBtn').addEventListener('click', function() {
-  document.body.classList.toggle('dark-theme');
-  darkMode = !darkMode;
-  this.innerHTML = `<span class="material-icons">${darkMode ? 'light_mode' : 'dark_mode'}</span> Toggle Theme`;
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+
+    // Save theme preference to localStorage
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+    // Update button icon and text
+    this.innerHTML = `<span class="material-icons">${isDark ? 'light_mode' : 'dark_mode'}</span> ${isDark ? 'Light Mode' : 'Dark Mode'}`;
 });
+
+// Apply saved theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        document.getElementById('themeToggleBtn').innerHTML = `<span class="material-icons">light_mode</span> Light Mode`;
+    }
+});
+
 
     function getAvatarColor(displayName) {
     const firstChar = displayName.trim()[0].toLowerCase();
