@@ -456,13 +456,18 @@ header {
   position: relative;
 }
 
-.timestamp {
+.message.outgoing .timestamp {
   position: relative;
   font-size: var(--timestamp-font-size);
   right: -60px;
   opacity: 1;
 }
-
+.message.incoming .timestamp {
+  position: relative;
+  font-size: var(--timestamp-font-size);
+  right: 10px;
+  opacity: 1;
+}
 .timestamp.visible {
   font-size: var(--timestamp-font-size);
   right: -60px;
