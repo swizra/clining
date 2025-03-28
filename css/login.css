@@ -41,17 +41,22 @@
   border-radius: 10px;
 }
 
-/* Form Group Spacing */
 .form-group {
   margin-bottom: 1rem;
   position: relative;
 }
 #passwordInput {
-  padding-right: 3rem; /* Додатковий простір для іконки ока */
-  position: relative;
+  width: 100%;
+  padding: 0.75rem 2.5rem; 
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  background: var(--footer-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s, background-color 0.3s;
 }
-#emailInput,
-#passwordInput {
+
+#emailInput {
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 30px;
@@ -68,7 +73,6 @@
   outline: none;
 }
 
-/* Toggle Password Icon */
 .toggle-password {
   position: absolute;
   right: 15px;
@@ -78,6 +82,7 @@
   color: var(--text-color);
   font-size: 1.2rem;
   transition: color 0.3s;
+  padding-left: 5px;  
 }
 
 .toggle-password:hover {
