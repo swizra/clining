@@ -8,7 +8,6 @@
   min-height: 100vh;
 }
 
-/* Auth Box */
 .auth-container {
   background: var(--header-bg);
   border-radius: 20px;
@@ -22,7 +21,6 @@
   text-align: center;
 }
 
-/* Heading Style */
 .auth-container h2 {
   margin-bottom: 1.5rem;
   color: var(--text-color);
@@ -48,13 +46,13 @@
   margin-bottom: 1rem;
   position: relative;
 }
-
-/* Input Fields */
+#passwordInput {
+  padding-right: 3rem; /* Додатковий простір для іконки ока */
+  position: relative;
+}
 #emailInput,
 #passwordInput {
   width: 100%;
-  margin-right:40px;
-    paddint-right: 2rem;
   padding: 0.75rem 1rem;
   border-radius: 30px;
   border: 1px solid var(--border-color);
