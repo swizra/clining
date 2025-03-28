@@ -393,7 +393,6 @@ header {
 }
 
 .message.incoming .bubble {
-  background: var(--input-bg);
   color: var(--text-color);
   border-radius: 12px 12px 12px 0;
 }
@@ -423,7 +422,6 @@ header {
 
 .message.incoming {
   flex-direction: row;
-  background: var(--incoming-message);
   border: none;
 }
 
