@@ -245,5 +245,33 @@
       }
     });
   </script>
+  <script>
+  <script>
+  // Function to set up the swipe-to-scroll feature on an element.
+  function setupSwipeToScroll(element) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const swipeThreshold = 30; // Minimum distance (in px) for a swipe
+
+    element.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    element.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX - touchStartX > swipeThreshold) {
+        // Swipe from left to right detected: scroll 60px extra to the right
+        element.scrollLeft += 60;
+      }
+    });
+  }
+
+  // Initialize the swipe handler once the DOM is fully loaded.
+  document.addEventListener('DOMContentLoaded', function() {
+    const chatMessages = document.getElementById('chatMessages');
+    setupSwipeToScroll(chatMessages);
+  });
+</script>
+    </script>
 </body>
 </html>
