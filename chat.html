@@ -40,7 +40,7 @@
         <img src="assets/images/chat/global3.png" alt="Global Chat 3" />
         <span>Blue</span>
       </li>
-        <li onclick="selectRoom('globalChat4', this)">
+      <li onclick="selectRoom('globalChat4', this)">
         <img src="assets/images/chat/global4.png" alt="Global Chat 4" />
         <span>White</span>
       </li>
@@ -52,7 +52,7 @@
         <img src="assets/images/chat/global6.png" alt="Global Chat 6" />
         <span>Green</span>
       </li>
-        <li onclick="selectRoom('globalChat7', this)">
+      <li onclick="selectRoom('globalChat7', this)">
         <img src="assets/images/chat/global7.png" alt="Global Chat 7" />
         <span>Violet</span>
       </li>
@@ -60,7 +60,6 @@
         <img src="assets/images/chat/global8.png" alt="Global Chat 8" />
         <span>Pink</span>
       </li>
-      <!-- Add more chat rooms as needed -->
     </ul>
   </nav>
 
@@ -80,20 +79,20 @@
     <div class="chat-messages" id="chatMessages">
       <!-- Chat messages will load here -->
     </div>
-  <div class="chat-input-area">
-  <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
-  <button class="sendMessageBtn" onclick="sendMessage()">
-    <span class="material-icons icon-small">send</span>
-  </button>
-</div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button class="sendMessageBtn" onclick="sendMessage()">
+        <span class="material-icons icon-small">send</span>
+      </button>
+    </div>
   </div>
-<div id="scrollToBottomArrow" class="scroll-to-bottom">
-  <span class="material-icons">keyboard_arrow_down</span>
-</div>
+
+  <div id="scrollToBottomArrow" class="scroll-to-bottom">
+    <span class="material-icons">keyboard_arrow_down</span>
+  </div>
 
   <!-- Firebase & App Logic -->
   <script>
-    // Firebase configuration including the Realtime Database URL
     const firebaseConfig = {
       apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
       authDomain: "soyth-chat.firebaseapp.com",
@@ -105,12 +104,10 @@
       databaseURL: "https://soyth-chat-default-rtdb.europe-west1.firebasedatabase.app/"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.database();
 
-    // UI Elements
     const authContainer = document.getElementById('authContainer');
     const chatContainer = document.getElementById('chatContainer');
     const authTitle = document.getElementById('authTitle');
@@ -123,12 +120,12 @@
     const chatInput = document.getElementById('chatInput');
     const contactsMenu = document.getElementById('contactsMenu');
 
-    // Toggle Sidebar Menu
+    let currentRoom = 'globalChat1';
+
     function toggleMenu() {
       contactsMenu.classList.toggle('open');
     }
 
-    // Toggle between Login and Register modes
     let isLogin = true;
     function toggleAuth() {
       isLogin = !isLogin;
@@ -138,7 +135,6 @@
       authError.textContent = '';
     }
 
-    // Login or Register function based on mode
     function loginOrRegister() {
       const email = emailInput.value;
       const password = passwordInput.value;
@@ -147,17 +143,14 @@
         auth.signInWithEmailAndPassword(email, password)
           .catch(error => authError.textContent = error.message);
       } else {
-        // For registration, you may also want to collect a display name.
         auth.createUserWithEmailAndPassword(email, password)
           .then(userCredential => {
-            // Optionally, update displayName if needed
             return userCredential.user.updateProfile({ displayName: email.split('@')[0] });
           })
           .catch(error => authError.textContent = error.message);
       }
     }
 
-    // Logout User
     function logoutUser() {
       auth.signOut();
       chatMessages.innerHTML = '';
@@ -165,7 +158,6 @@
       chatContainer.style.display = 'none';
     }
 
-    // Listen for auth state changes
     auth.onAuthStateChanged(user => {
       if (user) {
         authContainer.style.display = 'none';
@@ -177,48 +169,37 @@
       }
     });
 
-    // Send a message
-function sendMessage() {
-  const messageText = chatInput.value.trim();
-  if (messageText !== '') {
-    // Send the message to Firebase or your backend
-    db.ref('messages').push({
-      text: messageText,
-      uid: auth.currentUser.uid,
-      displayName: auth.currentUser.displayName || auth.currentUser.email,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      room: currentRoom
-    });
+    function sendMessage() {
+      const messageText = chatInput.value.trim();
+      if (messageText !== '') {
+        db.ref('messages').push({
+          text: messageText,
+          uid: auth.currentUser.uid,
+          displayName: auth.currentUser.displayName || auth.currentUser.email,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+          room: currentRoom
+        });
 
-    // Clear the input field after sending the message
-    chatInput.value = '';
-    
-    // Reset the input height to the initial height after sending
-    chatInput.style.height = '40px';
+        chatInput.value = '';
+        chatInput.style.height = '40px';
 
-    // Scroll to the bottom of the chat container after sending the message
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-}
+        scrollToBottom();
+      }
+    }
 
-    let currentRoom = 'globalChat1'; // default room
     function loadMessages() {
-      // Update header based on room selection
       chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
       db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
         chatMessages.innerHTML = '';
         snapshot.forEach(childSnapshot => {
           const msg = childSnapshot.val();
-          // Filter messages for the current room
           if(msg.room === currentRoom) {
             const msgDiv = document.createElement('div');
             msgDiv.classList.add('message');
             msgDiv.classList.add(msg.uid === auth.currentUser.uid ? 'outgoing' : 'incoming');
-            // Create an avatar (using the first letter of the display name)
             const avatar = document.createElement('div');
             avatar.classList.add('avatar');
             avatar.textContent = msg.displayName.charAt(0).toUpperCase();
-            // Create bubble for text
             const bubble = document.createElement('div');
             bubble.classList.add('bubble');
             bubble.textContent = msg.text;
@@ -231,82 +212,33 @@ function sendMessage() {
       });
     }
 
-    // Switch chat rooms
-// Listen for auth state changes
-auth.onAuthStateChanged(user => {
-  if (user) {
-    authContainer.style.display = 'none';
-    chatContainer.style.display = 'flex';
-    loadMessages();
-    scrollToBottom(); // Scroll to the bottom on login
-  } else {
-    authContainer.style.display = 'flex';
-    chatContainer.style.display = 'none';
-  }
-});
+    function selectRoom(room, element) {
+      currentRoom = room;
+      document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
+      element.classList.add('active');
+      loadMessages();
+      scrollToBottom();
+      contactsMenu.classList.remove('open');
+    }
 
-// Switch chat rooms
-function selectRoom(room, element) {
-  currentRoom = room;
-  // Remove active class from all contacts
-  document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
-  element.classList.add('active');
-  loadMessages();
-  scrollToBottom(); // Scroll to the bottom when switching rooms
-  // Optionally close sidebar after selection on mobile
-  contactsMenu.classList.remove('open');
-}
-  </script>
-  <script>
-    // Get the chat input element
-const chatInput = document.getElementById('chatInput');
+    function scrollToBottom() {
+      const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight;
+      if (!isAtBottom) {
+        document.getElementById('scrollToBottomArrow').style.display = 'block';
+      } else {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
 
-// Handle input changes to resize the input field dynamically
-chatInput.addEventListener('input', function () {
-  // Reset height to 'auto' to recalculate the new height based on content
-  this.style.height = 'auto';
-  
-  this.style.height = Math.min(this.scrollHeight, window.innerHeight * 0.3) + 'px';
-});
-
-function sendMessage() {
-  const messageText = chatInput.value.trim();
-  if (messageText !== '') {
-    // Send the message to Firebase or your backend
-    db.ref('messages').push({
-      text: messageText,
-      uid: auth.currentUser.uid,
-      displayName: auth.currentUser.displayName || auth.currentUser.email,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      room: currentRoom
+    document.getElementById('scrollToBottomArrow').addEventListener('click', function() {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      document.getElementById('scrollToBottomArrow').style.display = 'none';
     });
 
-    // Clear the input field after sending the message
-    chatInput.value = '';
-
-    // Reset the input height to the initial height after sending
-    chatInput.style.height = '40px';
-
-    // Scroll to the bottom of the chat container after sending the message
-    scrollToBottom();
-  }
-}
-
-function scrollToBottom() {
-  // Check if user is at the bottom of the chat
-  const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight;
-
-  // Scroll to the bottom if not already at the bottom
-  if (!isAtBottom) {
-    document.getElementById('scrollToBottomArrow').style.display = 'block';
-  } else {
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-}
-document.getElementById('scrollToBottomArrow').addEventListener('click', function() {
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-  document.getElementById('scrollToBottomArrow').style.display = 'none'; // Hide the arrow
-});
+    chatInput.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, window.innerHeight * 0.3) + 'px';
+    });
 
   </script>
 </body>
