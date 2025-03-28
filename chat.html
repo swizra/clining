@@ -359,40 +359,6 @@ document.addEventListener('click', function(e) {
     }
   }
 });
-// Define the minimum swipe distance for triggering the menu
-const menuSwipeThreshold = 100; // 100 pixels for a longer swipe
-const leftEdgeZone = 50; // Distance from the left edge to detect swipe start
-let menuTouchStart = 0;
-
-document.addEventListener('touchstart', function(e) {
-  // Check if the touch started near the left edge
-  if (e.touches[0].clientX < leftEdgeZone) {
-    menuTouchStart = e.touches[0].clientX;
-  }
-});
-
-document.addEventListener('touchend', function(e) {
-  let menuTouchEnd = e.changedTouches[0].clientX;
-  let diff = menuTouchEnd - menuTouchStart;
-
-  // Only open the menu for left-to-right swipe
-  if (menuTouchStart < leftEdgeZone && diff > menuSwipeThreshold) {
-    contactsMenu.classList.add('open'); // Open the contacts menu on left to right swipe
-  }
-});
-
-// Add the timestamp toggle to the message bubbles
-function addTimestampToggle() {
-  const bubbles = document.querySelectorAll('.bubble');
-  bubbles.forEach(bubble => {
-    bubble.addEventListener('click', function () {
-      bubble.classList.toggle('show-timestamp');
-    });
-  });
-}
-
-// Call this function after messages are rendered
-addTimestampToggle();
   </script>
 </body>
 </html>
