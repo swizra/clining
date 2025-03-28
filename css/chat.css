@@ -447,18 +447,14 @@ header {
   position:relative;
 }
 .timestamp {
-  position: absolute;
-  right: -60px; 
-  top: 50%;
-  transform: translateY(-50%); 
-  opacity: 1; 
-  white-space: nowrap; 
-  transition: right 0.3s ease, opacity 0.3s ease;
-  font-size: var(--timestamp-font-size);
-  color: var(--timestamp-color);
+  position: relative;
+  left: -60px; /* Move timestamp to the right */
+  opacity: 0; /* Hide the timestamp initially */
+  transition: left 0.3s ease, opacity 0.3s ease; /* Smooth transition */
 }
 
-.bubble.show-timestamp .timestamp {
-  right: 10px; 
-  opacity: 1;
+.timestamp.visible {
+  left: 0; /* Move timestamp to its original position */
+  opacity: 1; /* Make the timestamp visible */
 }
+
