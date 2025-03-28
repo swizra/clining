@@ -381,7 +381,9 @@ header {
   padding: 10px;
   gap: 10px;
 }
-
+.chatInfoButtons button {
+  color: var(--text-color);
+}
 .chatInfoButtons button {
   display: flex;
   align-items: center;
