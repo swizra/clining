@@ -275,6 +275,7 @@ header {
 }
 
 .chat-input-area {
+  display:none;
   padding: 15px 20px;  /* Increased padding for a taller input area */
   position: fixed;
   bottom: 20px;  /* Moved it 20px higher */
@@ -297,6 +298,7 @@ header {
   border-radius: 12px;
   border: 1px solid var(--border-color);
   background: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   color: var(--text-color);
   min-height: 50px;  /* Increased min-height for a taller box */
   resize: none;
