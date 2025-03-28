@@ -21,11 +21,12 @@
 .auth-container h2 {
   margin-bottom: 1.5rem;
   color: var(--text-color);
-  font-family: 'Playfair Display', serif;
+  font-family: 'Inter Display', serif;
   position: relative;
 }
 
 .auth-container h2::after {
+  display: none;
   content: '';
   position: absolute;
   left: 50%;
