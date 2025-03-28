@@ -90,7 +90,7 @@
       if (isLogin) {
         auth.signInWithEmailAndPassword(email, password)
           .then(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'chat.html';
           })
           .catch(error => {
             errorMsg.textContent = error.message;
