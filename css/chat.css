@@ -346,7 +346,7 @@ header {
 
 .sendMessageBtn {
   position: absolute;
-  right: 30px;
+  right: 15px;
   top: 50%;
   border: none;
   transform: translateY(-50%);
