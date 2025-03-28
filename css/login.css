@@ -9,11 +9,10 @@
 
 .auth-container {
   background: var(--header-bg);
-  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
+  border: var(--border-color-info-panel);  width: 100%;
   max-width: 400px;
   text-align: center;
 }
