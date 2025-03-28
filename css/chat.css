@@ -370,3 +370,24 @@ header {
   color: var(--accent-color);
   text-decoration: underline;
 }
+.chatInfoButtons {
+  display: flex;
+  flex-direction: column; 
+  padding: 10px;
+  gap: 10px;
+}
+
+.chatInfoButtons button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chatInfoButtons button:hover {
+  background-color: #ddd;
+}
