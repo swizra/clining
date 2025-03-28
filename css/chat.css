@@ -459,12 +459,12 @@ header {
 .timestamp {
   position: fixed;
   font-size: var(--timestamp-font-size);
-  right: 0;
+  right: -60px;
   opacity: 1;
 }
 
 .timestamp.visible {
   font-size: var(--timestamp-font-size);
-  right: 0;
+  right: -60px;
   opacity: 1;
 }
