@@ -471,3 +471,9 @@ header {
 #chatMessages {
   overflow-x: auto;
 }
+.hidden-space {
+  width: 60px; 
+  background-color: var(--bg-color);
+  visibility: hidden; 
+  z-index: -1;
+}
