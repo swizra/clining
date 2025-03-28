@@ -408,7 +408,7 @@ header {
   position: absolute;
   font-size: var(--timestamp-font-size);
   right: -60px;
-  opacity: 0;
+  opacity: 1;
   visibility: hidden;
   transition: right 0.3s ease, opacity 0.3s ease;
 }
