@@ -28,7 +28,7 @@ html, body {
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: black;
-    --text-color: #e0e0e0;
+    --text-color: white;
     --header-bg: rgba(18, 18, 18, 0.95);
     --border-color: #333;
     --accent-color: #bb86fc;
@@ -39,7 +39,7 @@ html, body {
     --footer-bg: #1e1e1e;
     --footer-text: #aaa;
     --logo-color: #e0e0e0;
-    --outcoming-message: #385099;
+    --outcoming-message: #1e1e1e;
     --outcoming-text: #f0f0f0;
     --timestamp-color: #aaa;
     --timestamp-font-size: 0.7rem;
