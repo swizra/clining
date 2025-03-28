@@ -287,11 +287,11 @@ header {
 
 .chat-input-area input {
   flex: 1;
-  font-size: 1rem;
+  font-size: 0.7rem;
   padding: 12px 15px;
   border-radius: 12px;
   border: 1px solid var(--border-color);
-  background: none;
+  background: var(--input-bg);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   color: var(--text-color);
   min-height: 50px;
