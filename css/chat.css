@@ -19,7 +19,7 @@ html, body {
   --footer-bg: #f1f1f1;
   --footer-text: #555;
   --logo-color: #333;
-  --outcoming-message: #0073e6; 
+  --outcoming-message: #c9d3f2;
   --outcoming-text: #fff; 
   --timestamp-color: #999;
   --timestamp-font-size: 0.7rem;
@@ -40,7 +40,7 @@ html, body {
     --footer-bg: #1e1e1e;
     --footer-text: #aaa;
     --logo-color: #e0e0e0;
-    --outcoming-message: #1a73e8;
+    --outcoming-message: #385099;
     --outcoming-text: #f0f0f0;
     --timestamp-color: #aaa;
     --timestamp-font-size: 0.7rem;
