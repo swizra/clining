@@ -63,7 +63,7 @@
 #loginButton {
   background-color: var(--btn-join-bg);
   color: #fff;
-  width: 100%;
+  width: 50%;
   margin-top: 1rem;
 }
 
