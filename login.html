@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <link rel="stylesheet" href="css/css.css">
   <title>Login - Soyth Club</title>
@@ -39,24 +39,31 @@
     </nav>
   </header> 
 
-  <!-- Login Page Code -->
-  <div class="login-container" id="loginContainer" style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-    <h2 id="loginTitle" style="text-align: center;">Login</h2>
-    <form id="loginForm" onsubmit="loginUser(event)">
-      <input type="email" id="emailInput" placeholder="Email" required style="width: 100%; padding: 10px; margin: 10px 0;">
-      <input type="password" id="passwordInput" placeholder="Password" required style="width: 100%; padding: 10px; margin: 10px 0;">
-      <button type="submit" id="loginButton" style="width: 100%; padding: 10px; margin: 10px 0;">Login</button>
-      <p id="errorMsg" style="color: red; text-align: center;"></p>
-    </form>
-    <p class="toggle-auth" onclick="toggleAuth()" style="text-align: center; cursor: pointer; color: blue;">
-      Don't have an account? Register here.
-    </p>
-  </div>
+  <!-- Login Form Section -->
+  <section id="authSection" style="padding: 100px 20px; display: flex; justify-content: center; align-items: center;">
+    <div class="auth-container" id="loginContainer" style="width: 100%; max-width: 400px; background: var(--header-bg); padding: 2rem; border: 1px solid var(--border-color); border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      <h2 id="loginTitle" style="text-align: center; margin-bottom: 1.5rem;">Login</h2>
+      <form id="loginForm" onsubmit="loginUser(event)">
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <input type="email" id="emailInput" placeholder="Email" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-family: 'Inter', sans-serif;">
+        </div>
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <input type="password" id="passwordInput" placeholder="Password" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-family: 'Inter', sans-serif;">
+        </div>
+        <button type="submit" id="loginButton" class="btn-primary" style="width: 100%;">Login</button>
+        <p id="errorMsg" style="color: red; text-align: center; margin-top: 1rem;"></p>
+      </form>
+      <p class="toggle-auth" onclick="toggleAuth()" style="text-align: center; cursor: pointer; color: var(--accent-color); margin-top: 1rem;">
+        Don't have an account? Register here.
+      </p>
+    </div>
+  </section>
 
   <!-- Firebase and Login Script -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script>
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
       authDomain: "soyth-chat.firebaseapp.com",
@@ -90,7 +97,8 @@
       if (isLogin) {
         auth.signInWithEmailAndPassword(email, password)
           .then(() => {
-            window.location.href = 'chat.html';
+            // Redirect to home/dashboard after login
+            window.location.href = 'index.html';
           })
           .catch(error => {
             errorMsg.textContent = error.message;
@@ -170,6 +178,7 @@
           </ul>
         </div>
       </div>
+      <!-- Additional accordion items if needed -->
     </div>
 
     <p>&copy; <span id="year"></span> Soyth Club. All Rights Reserved.</p>
