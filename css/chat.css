@@ -140,7 +140,7 @@ header {
   gap: 10px;
   padding: 8px;
   margin-bottom: 10px;
-  border-radius: 100%;
+  border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s;
 }
