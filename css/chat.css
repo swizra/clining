@@ -289,7 +289,8 @@ header {
   font-size: 0.7rem;
   color: #999;
   margin-top: 4px;
-  margin-left: 4px;
+  margin-left: 2px;
+  margin-right: 2px;
   white-space: nowrap; 
 }
 
