@@ -397,7 +397,7 @@ header {
 }
 
 .chatInfoPanel:hover {
-  border-color: var(--accent-color);
+  border-color: var(--border-color-info-panel);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
