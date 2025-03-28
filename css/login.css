@@ -2,17 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px 20px;
+  padding: 100px 20px;
   background-color: var(--bg-color);
   min-height: 100vh;
 }
 
 .auth-container {
   background: var(--header-bg);
-  border: 1px solid var(--border-color-info-panel);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
   text-align: center;
@@ -21,7 +21,7 @@
 .auth-container h2 {
   margin-bottom: 1.5rem;
   color: var(--text-color);
-  font-family: 'Inter', serif;
+  font-family: 'Playfair Display', serif;
   position: relative;
 }
 
@@ -38,26 +38,13 @@
 }
 
 .form-group {
-  position: relative;
   margin-bottom: 1rem;
-}
-
-.form-group label {
-  position: absolute;
-  top: 50%;
-  left: 1rem;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  color: var(--text-color);
-  transition: all 0.2s ease;
-  pointer-events: none;
 }
 
 #emailInput,
 #passwordInput {
   width: 100%;
-  padding: 1rem;
-  padding-left: 2rem; /* Adjusted padding for label */
+  padding: 0.75rem 1rem;
   border-radius: 30px;
   border: 1px solid var(--border-color);
   background: var(--footer-bg);
@@ -72,28 +59,10 @@
   outline: none;
 }
 
-#emailInput:focus + label,
-#passwordInput:focus + label,
-#emailInput:not(:placeholder-shown) + label,
-#passwordInput:not(:placeholder-shown) + label {
-  top: -10px;
-  left: 1rem;
-  font-size: 0.8rem;
-  color: var(--accent-color);
-}
-
-/* Autofill Styling */
-#emailInput:-webkit-autofill,
-#passwordInput:-webkit-autofill {
-  background-color: var(--footer-bg) !important;
-  color: var(--text-color) !important;
-  border: 1px solid var(--border-color) !important;
-}
-
 #loginButton {
   background-color: var(--btn-join-bg);
   color: #fff;
-  width: 50%;
+  width: 100%;
   margin-top: 1rem;
 }
 
