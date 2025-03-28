@@ -243,9 +243,9 @@ header {
 
 .message-text {
   word-wrap: break-word;
-  flex: 1; 
+  white-space: nowrap; 
+  overflow: hidden;
 }
-
 
 .chat-input-area {
   position: fixed;
