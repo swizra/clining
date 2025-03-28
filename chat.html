@@ -111,6 +111,7 @@ const chatInfoContent = document.getElementById('chat-info-content');
 const deleteMessagesBtn = document.getElementById('delete-messages-btn');
 
 let currentRoom = 'global';
+let wasLoggedIn = false;
 
 function closeInfoPanel() {
   chatInfoPanel.style.display = 'none';
@@ -124,7 +125,6 @@ loginForm.addEventListener('submit', e => {
     .then(() => {
       loginForm.reset();
       closeInfoPanel();
-      alert(`Welcome, ${email}`);
     })
     .catch(error => alert(error.message));
 });
@@ -137,7 +137,6 @@ registerForm.addEventListener('submit', e => {
     .then(() => {
       registerForm.reset();
       closeInfoPanel();
-      alert(`Welcome, ${email}`);
     })
     .catch(error => alert(error.message));
 });
@@ -164,12 +163,6 @@ function toggleMenu() {
 
 function logoutUser() {
   auth.signOut();
-  chatMessages.innerHTML = '';
-  authContainer.style.display = 'flex';
-  chatContainer.style.display = 'none';
-  logo.textContent = 'Soyth';
-  closeInfoPanel();
-  alert('Goodbye!');
 }
 
 function sendMessage() {
@@ -265,12 +258,21 @@ auth.onAuthStateChanged(user => {
     authContainer.style.display = 'none';
     chatContainer.style.display = 'flex';
     loadMessages();
+    if (!wasLoggedIn) {
+      alert(`Welcome, ${user.email}`);
+      wasLoggedIn = true;
+    }
   } else {
+    if (wasLoggedIn) {
+      alert('Goodbye!');
+      wasLoggedIn = false;
+    }
     authContainer.style.display = 'flex';
     chatContainer.style.display = 'none';
     closeInfoPanel();
   }
 });
+
   </script>
 </body>
 </html>
