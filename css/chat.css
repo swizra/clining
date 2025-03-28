@@ -345,7 +345,7 @@ header {
 .scrollToBottomArrow {
   display: none;
   position: absolute;
-  bottom: 20px;
+  bottom: 50px;
   right: 20px;
   cursor: pointer;
   font-size: 24px;
