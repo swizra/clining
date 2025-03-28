@@ -91,188 +91,208 @@ side_navigation
     <div id="chatInfoContent"></div>
   </div>
   <script>
-const auth = firebase.auth();
-const db = firebase.database();
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
+      authDomain: "soyth-chat.firebaseapp.com",
+      projectId: "soyth-chat",
+      storageBucket: "soyth-chat.firebasestorage.app",
+      messagingSenderId: "443722955446",
+      appId: "1:443722955446:web:6745ef0fa305673bb88417",
+      measurementId: "G-H7FQJVEW8Q",
+      databaseURL: "https://soyth-chat-default-rtdb.europe-west1.firebasedatabase.app/"
+    };
 
-const authContainer = document.getElementById('auth-container');
-const chatContainer = document.getElementById('chat-container');
-const chatMessages = document.getElementById('chat-messages');
-const chatInput = document.getElementById('chat-input');
-const chatHeader = document.getElementById('chat-header');
-const loginForm = document.getElementById('login-form');
-const registerForm = document.getElementById('register-form');
-const logoutBtn = document.getElementById('logout-btn');
-const contactsMenu = document.getElementById('contacts-menu');
-const menuToggle = document.getElementById('menu-toggle');
-const logo = document.getElementById('logo');
-const chatInfoBtn = document.getElementById('chat-info-btn');
-const chatInfoPanel = document.getElementById('chat-info-panel');
-const chatInfoContent = document.getElementById('chat-info-content');
-const deleteMessagesBtn = document.getElementById('delete-messages-btn');
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+    const logo = document.querySelector('.logo');
+    const authContainer = document.getElementById('authContainer');
+    const chatContainer = document.getElementById('chatContainer');
+    const authTitle = document.getElementById('authTitle');
+    const authButton = document.getElementById('authButton');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const authError = document.getElementById('authError');
+    const chatHeader = document.getElementById('chatHeader');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const contactsMenu = document.getElementById('contactsMenu');
 
-let currentRoom = 'global';
-let wasLoggedIn = false;
+    let currentRoom = 'globalChat1';
 
-function closeInfoPanel() {
-  chatInfoPanel.style.display = 'none';
-}
+    function toggleMenu() {
+      contactsMenu.classList.toggle('open');
+    }
 
-loginForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const email = loginForm['login-email'].value;
-  const password = loginForm['login-password'].value;
-  auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      loginForm.reset();
-      closeInfoPanel();
-    })
-    .catch(error => alert(error.message));
-});
+    let isLogin = true;
+    function toggleAuth() {
+      isLogin = !isLogin;
+      authTitle.textContent = isLogin ? 'Login' : 'Register';
+      authButton.textContent = isLogin ? 'Login' : 'Register';
+      document.querySelector('.toggle-auth').textContent = isLogin ? "Don't have an account? Register here." : "Already have an account? Login here.";
+      authError.textContent = '';
+    }
 
-registerForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const email = registerForm['register-email'].value;
-  const password = registerForm['register-password'].value;
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      registerForm.reset();
-      closeInfoPanel();
-    })
-    .catch(error => alert(error.message));
-});
-
-logoutBtn.addEventListener('click', logoutUser);
-
-menuToggle.addEventListener('click', toggleMenu);
-
-chatInput.addEventListener('keypress', e => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-chatInfoBtn.addEventListener('click', toggleChatInfo);
-
-deleteMessagesBtn.addEventListener('click', deleteAllMessages);
-
-function toggleMenu() {
-  contactsMenu.classList.toggle('open');
-  closeInfoPanel();
-}
-
-function logoutUser() {
-  auth.signOut();
-}
-
-function sendMessage() {
-  const messageText = chatInput.value.trim();
-  if (messageText !== '') {
-    db.ref('messages').push({
-      text: messageText,
-      uid: auth.currentUser.uid,
-      displayName: auth.currentUser.displayName || auth.currentUser.email,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      room: currentRoom
-    });
-    chatInput.value = '';
-    chatInput.style.height = '40px';
-    scrollToBottom();
-    closeInfoPanel();
-  }
-}
-
-function loadMessages() {
-  db.ref('messages').orderByChild('room').equalTo(currentRoom).on('value', snapshot => {
-    chatMessages.innerHTML = '';
-    snapshot.forEach(child => {
-      const message = child.val();
-      const messageElement = document.createElement('div');
-      messageElement.classList.add('message');
-      if (message.uid === auth.currentUser.uid) {
-        messageElement.classList.add('own-message');
+    function loginOrRegister() {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      authError.textContent = '';
+      if(isLogin) {
+        auth.signInWithEmailAndPassword(email, password)
+          .catch(error => authError.textContent = error.message);
+      } else {
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(userCredential => {
+            return userCredential.user.updateProfile({ displayName: email.split('@')[0] });
+          })
+          .catch(error => authError.textContent = error.message);
       }
-      messageElement.innerHTML = `<strong>${message.displayName}: </strong>${message.text}`;
-      chatMessages.appendChild(messageElement);
-    });
-    scrollToBottom();
-  });
-}
-
-function scrollToBottom() {
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function toggleChatInfo() {
-  if (chatInfoPanel.style.display === 'block') {
-    chatInfoPanel.style.display = 'none';
-  } else {
-    showChatInfo();
-  }
-}
-
-function showChatInfo() {
-  chatInfoContent.innerHTML = '';
-  db.ref('messages').orderByChild('room').equalTo(currentRoom).once('value', snapshot => {
-    const messages = snapshot.val();
-    if (messages) {
-      const totalMessages = Object.keys(messages).length;
-      chatInfoContent.innerHTML = `<p>Total Messages: ${totalMessages}</p>`;
-    } else {
-      chatInfoContent.innerHTML = '<p>No messages in this chat.</p>';
     }
-  });
-  chatInfoPanel.style.display = 'block';
-}
 
-function deleteAllMessages() {
-  if (confirm('Are you sure you want to delete all messages in this chat?')) {
-    db.ref('messages').orderByChild('room').equalTo(currentRoom).once('value', snapshot => {
-      snapshot.forEach(child => {
-        db.ref('messages').child(child.key).remove();
+    function logoutUser() {
+      auth.signOut();
+      chatMessages.innerHTML = '';
+      authContainer.style.display = 'flex';
+      chatContainer.style.display = 'none';
+      logo.textContent = 'Soyth';
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        authContainer.style.display = 'none';
+        chatContainer.style.display = 'flex';
+        loadMessages();
+      } else {
+        authContainer.style.display = 'flex';
+        chatContainer.style.display = 'none';
+      }
+    });
+
+    function sendMessage() {
+      const messageText = chatInput.value.trim();
+      if (messageText !== '') {
+        db.ref('messages').push({
+          text: messageText,
+          uid: auth.currentUser.uid,
+          displayName: auth.currentUser.displayName || auth.currentUser.email,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+          room: currentRoom
+        });
+
+        chatInput.value = '';
+        chatInput.style.height = '40px';
+
+        scrollToBottom();
+      }
+    }
+
+    function loadMessages() {
+      chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+      db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
+        chatMessages.innerHTML = '';
+        snapshot.forEach(childSnapshot => {
+          const msg = childSnapshot.val();
+          if (msg.room === currentRoom) {
+            const msgDiv = document.createElement('div');
+            const isOutgoing = msg.uid === auth.currentUser.uid;
+            msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+
+            const avatar = document.createElement('div');
+            avatar.classList.add('avatar');
+            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+
+            const messageText = document.createElement('div');
+            messageText.classList.add('message-text');
+            messageText.textContent = msg.text;
+
+            const time = document.createElement('div');
+            time.classList.add('timestamp');
+            const date = new Date(msg.timestamp);
+            time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            bubble.appendChild(messageText);
+            bubble.appendChild(time);
+
+            msgDiv.appendChild(avatar);
+            msgDiv.appendChild(bubble);
+            chatMessages.appendChild(msgDiv);
+          }
+        });
+        chatMessages.scrollTop = chatMessages.scrollHeight;
       });
-      chatInfoContent.innerHTML = 'All messages deleted.';
+    }
+
+    function selectRoom(room, element) {
+      currentRoom = room;
+      document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
+      element.classList.add('active');
+
+      const roomName = element.querySelector('span').textContent;
+      chatHeader.textContent = roomName;
+      logo.textContent = roomName; 
+
       loadMessages();
+      scrollToBottom();
+      contactsMenu.classList.remove('open');
+    }
+
+    function scrollToBottom() {
+      const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight;
+      if (!isAtBottom) {
+        document.getElementById('scrollToBottomArrow').style.display = 'block';
+      } else {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+
+    document.getElementById('scrollToBottomArrow').addEventListener('click', function() {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      document.getElementById('scrollToBottomArrow').style.display = 'none';
     });
-  }
-}
 
-function selectRoom(room, element) {
-  currentRoom = room;
-  document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
-  element.classList.add('active');
-  const roomName = element.querySelector('span').textContent;
-  chatHeader.textContent = roomName;
-  logo.textContent = roomName;
-  loadMessages();
-  scrollToBottom();
-  contactsMenu.classList.remove('open');
-  if (chatInfoPanel.style.display === 'block') {
-    showChatInfo();
-  }
-  closeInfoPanel();
-}
+    chatInput.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, window.innerHeight * 0.3) + 'px';
+    });
 
-auth.onAuthStateChanged(user => {
-  if (user) {
-    authContainer.style.display = 'none';
-    chatContainer.style.display = 'flex';
-    loadMessages();
-    if (!wasLoggedIn) {
-      alert(`Welcome, ${user.email}`);
-      wasLoggedIn = true;
+    // --- New Code for Info Panel ---
+    const chatInfoBtn = document.getElementById('chatInfoBtn');
+    const chatInfoPanel = document.getElementById('chatInfoPanel');
+    const chatInfoContent = document.getElementById('chatInfoContent');
+
+    chatInfoBtn.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent default href behavior (scroll to top)
+      showChatInfo();
+    });
+
+    function showChatInfo() {
+      db.ref('messages').orderByChild('timestamp').once('value', snapshot => {
+        let messages = [];
+        snapshot.forEach(child => {
+          const msg = child.val();
+          if (msg.room === currentRoom) {
+            messages.push(msg);
+          }
+        });
+
+        if (messages.length === 0) {
+          chatInfoContent.innerHTML = "No messages in this room.";
+        } else {
+          // Sort messages by timestamp to be sure
+          messages.sort((a, b) => a.timestamp - b.timestamp);
+          const first = new Date(messages[0].timestamp).toLocaleString();
+          const last = new Date(messages[messages.length - 1].timestamp).toLocaleString();
+          chatInfoContent.innerHTML = 
+            "<strong>Messages sent:</strong> " + messages.length + "<br>" +
+            "<strong>First message:</strong> " + first + "<br>" +
+            "<strong>Last message:</strong> " + last;
+        }
+        chatInfoPanel.style.display = (chatInfoPanel.style.display === 'block') ? 'none' : 'block';
+      });
     }
-  } else {
-    if (wasLoggedIn) {
-      alert('Goodbye!');
-      wasLoggedIn = false;
-    }
-    authContainer.style.display = 'flex';
-    chatContainer.style.display = 'none';
-    closeInfoPanel();
-  }
-});
-
   </script>
 </body>
 </html>
