@@ -122,6 +122,9 @@
     auth.onAuthStateChanged(user => {
       if (!user) {
         window.location.href = "login.html";
+      } else {
+        // Call loadMessages to display the chat UI once the user is logged in.
+        loadMessages();
       }
     });
 
