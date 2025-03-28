@@ -262,7 +262,7 @@ header {
   align-items: center;
   justify-content: center;
 }
-.scroll-to-bottom {
+.scrollToBottomArrow {
   display: none;
   position: absolute;
   bottom: 20px;
@@ -275,6 +275,6 @@ header {
   color: white;
 }
 
-.scroll-to-bottom:hover {
+.scrollToBottomArrow:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
