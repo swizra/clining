@@ -771,3 +771,6 @@ footer .footer-divider {
       font-size: 1rem;
       margin-bottom: 10px;
     }
+  .current-month-year { 
+      display:none;
+  }
