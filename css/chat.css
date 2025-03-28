@@ -301,6 +301,10 @@ header {
   line-height: 1.5;
 }
 
+.chat-input-area input:focus {
+  outline: none;           
+  background: none;      
+}
 
 .sendMessageBtn {
   position: absolute;
