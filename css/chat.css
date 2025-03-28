@@ -275,32 +275,26 @@ header {
 }
 
 .chat-input-area {
-  display:none;
-  padding: 15px 20px;  /* Increased padding for a taller input area */
+  padding: 15px 20px; 
   position: fixed;
-  bottom: 20px;  /* Moved it 20px higher */
+  bottom: 20px;
   width: 100%;
-  background: var(--header-bg);
+  background: none;
   display: flex;
   gap: 10px;
   align-items: flex-start;
-  border-top: 1px solid var(--border-color);
-  border-radius: 12px;  /* Added slight rounding */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  /* Stronger box shadow */
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: height 0.2s ease;
 }
 
 .chat-input-area input {
   flex: 1;
-  padding: 12px 15px;  /* Increased padding for height */
+  padding: 12px 15px;
   border-radius: 12px;
   border: 1px solid var(--border-color);
   background: none;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   color: var(--text-color);
-  min-height: 50px;  /* Increased min-height for a taller box */
+  min-height: 50px;
   resize: none;
   overflow-y: hidden;
   max-height: 30vh;
