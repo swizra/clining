@@ -443,10 +443,12 @@ header {
 }
 
 .timestamp {
-  position: absolute;
+  position: absolute; 
   right: -60px; 
-  transform: translateY(-50%);
-  opacity: 1;
+  top: 50%;
+  transform: translateY(-50%); 
+  opacity: 1; 
+  white-space: nowrap; 
   transition: right 0.3s ease, opacity 0.3s ease;
   font-size: var(--timestamp-font-size);
   color: var(--timestamp-color);
