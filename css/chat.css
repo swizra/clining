@@ -312,6 +312,7 @@ header {
   margin: 0;
   right: 0;
   left: 0;
+  border: none;
   bottom: 0;
   padding: 0;
   width: 100vw;
@@ -325,6 +326,7 @@ header {
   flex: 1;
   padding-bottom: 20px;
   font-size: 0.9rem;
+  border: none;
   padding: 15px 18px; 
   border-radius: 12px 12px 0 0;
   background: var(--input-bg);
@@ -339,8 +341,9 @@ header {
 
 
 .chat-input-area input:focus {
-  outline: none;           
-  background: none;      
+  outline: none;   
+  border: none;
+  background: var(--input-bg);   
 }
 
 .sendMessageBtn {
@@ -394,7 +397,6 @@ header {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   z-index: 1100;
   font-size: 0.9rem;
-
   transition: all 0.3s ease;
 }
 
