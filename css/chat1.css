@@ -457,14 +457,16 @@ header {
 }
 
 .timestamp {
-  position: fixed;
+  position: absolute;
   font-size: var(--timestamp-font-size);
   right: 0;
-  opacity: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  padding-right: 20px;
+  visibility: hidden;
 }
 
-.timestamp.visible {
-  font-size: var(--timestamp-font-size);
-  right: 0;
+.message:hover .timestamp {
   opacity: 1;
+  visibility: visible;
 }
