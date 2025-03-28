@@ -206,11 +206,6 @@ function loadMessages() {
             minute: '2-digit'
           });
 
-          // Add the 'show-timestamp' class to trigger the sliding effect
-          if (!isOutgoing) {
-            bubble.classList.add('show-timestamp');
-          }
-
           bubble.appendChild(messageText);
           bubble.appendChild(time);
           msgDiv.appendChild(bubble);
@@ -220,7 +215,6 @@ function loadMessages() {
       chatMessages.scrollTop = chatMessages.scrollHeight;
     });
 }
-
 
 
     function selectRoom(room, element) {
@@ -365,79 +359,6 @@ document.addEventListener('click', function(e) {
     }
   }
 });
-    // Function to initialize swipe behavior on incoming messages
-function addSwipeEventToMessages() {
-  const messages = document.querySelectorAll('.message.incoming');
-  
-  messages.forEach(message => {
-    let startX = 0;  // Starting position of the swipe
-    let currentX = 0;  // Current position while dragging
-    let swipeThreshold = 100;  // Threshold for swipe to reveal the timestamp
-
-    // Detect start of the swipe
-    message.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;  // Get the touch starting position
-    });
-
-    message.addEventListener('mousedown', (e) => {
-      startX = e.clientX;  // For mouse events, record the starting position
-    });
-
-    // Detect moving/swiping
-    message.addEventListener('touchmove', (e) => {
-      currentX = e.touches[0].clientX;  // Get the current touch position
-      let distance = currentX - startX;
-
-      // If the user swipes to the right
-      if (distance > 0 && distance < swipeThreshold) {
-        // Slide the timestamp as user drags
-        message.querySelector('.timestamp').style.right = -60 + distance + 'px';
-      }
-    });
-
-    message.addEventListener('mousemove', (e) => {
-      if (e.buttons !== 1) return;  // Detect if the mouse button is pressed (dragging)
-      currentX = e.clientX;
-      let distance = currentX - startX;
-
-      // If the user swipes to the right
-      if (distance > 0 && distance < swipeThreshold) {
-        // Slide the timestamp as user drags
-        message.querySelector('.timestamp').style.right = -60 + distance + 'px';
-      }
-    });
-
-    // Detect end of swipe
-    message.addEventListener('touchend', () => {
-      handleSwipeEnd(message);
-    });
-
-    message.addEventListener('mouseup', () => {
-      handleSwipeEnd(message);
-    });
-
-    message.addEventListener('mouseleave', () => {
-      handleSwipeEnd(message);
-    });
-
-    // Handle when swipe ends
-    function handleSwipeEnd(message) {
-      const distance = currentX - startX;
-      if (distance >= swipeThreshold) {
-        // Show timestamp and apply the 'swiped' class
-        message.querySelector('.timestamp').style.right = '10px';  // Final position
-        message.classList.add('swiped');  // Show timestamp
-      } else {
-        // Reset the timestamp if the swipe was not enough
-        message.querySelector('.timestamp').style.right = '-60px';
-        message.classList.remove('swiped');
-      }
-    }
-  });
-}
-
-// Call this function to initialize swipe functionality on messages
-addSwipeEventToMessages();
   </script>
 </body>
 </html>
