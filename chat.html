@@ -186,8 +186,8 @@ function revealTimestamps() {
 
   // Check if chat has already been extended
   if (!chatMessages.classList.contains('extended')) {
-    // Extend chat by 60px
-    chatMessages.style.height = `${chatMessages.scrollHeight + 60}px`;
+    // Extend chat by 60px to the right
+    chatMessages.style.width = `${chatMessages.offsetWidth + 60}px`;
     chatMessages.classList.add('extended');
 
     // Reveal timestamps with a slight delay
@@ -198,6 +198,7 @@ function revealTimestamps() {
     });
   }
 }
+
 
 // Add event listeners for touchstart and touchend to detect swipes
 document.addEventListener('touchstart', (event) => {
