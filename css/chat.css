@@ -338,6 +338,7 @@ header {
 }
 
 .chatInfoPanel {
+  max-width: 500px
   padding: 10px;
   display: none;
   position: fixed;
