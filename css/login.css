@@ -87,3 +87,9 @@
   margin-top: 0.5rem;
   font-size: 0.9rem;
 }
+#emailInput:-webkit-autofill,
+#passwordInput:-webkit-autofill {
+  background-color: var(--footer-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
