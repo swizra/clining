@@ -192,7 +192,6 @@ header {
 
 .chat-messages {
   flex: 1;
-  max-height: calc(100% - 40px);
   padding: 0px 20px 12px;
   padding-bottom: 90px;
   overflow-y: auto;
@@ -203,6 +202,7 @@ header {
 }
 
 .message {
+  max-height: calc(100% - 40px);
   display: flex;
   align-items: flex-end;
   margin: 10px 0;
