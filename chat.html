@@ -206,15 +206,22 @@ function loadMessages() {
             minute: '2-digit'
           });
 
+          // Append message and timestamp
           bubble.appendChild(messageText);
           bubble.appendChild(time);
           msgDiv.appendChild(bubble);
           chatMessages.appendChild(msgDiv);
+
+          // After appending the message, add the 'visible' class to the timestamp
+          setTimeout(() => {
+            time.classList.add('visible');
+          }, 100); // Small delay to allow for message to appear
         }
       });
       chatMessages.scrollTop = chatMessages.scrollHeight;
     });
 }
+
 
 
     function selectRoom(room, element) {
