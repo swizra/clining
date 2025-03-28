@@ -457,8 +457,8 @@ header {
 .timestamp {
   position: fixed;
   font-size: var(--timestamp-font-size);
-  left: -30px;
-  opacity: 0;
+  right: -60px;
+  opacity: 1;
   transition: left 0.3s ease, opacity 0.3s ease;
 }
 
