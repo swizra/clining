@@ -367,8 +367,8 @@ header {
 }
 
 .chatInfoPanel a {
-  color: var(--accent-color);
-  text-decoration: underline;
+  color: var(--text-color);
+  text-decoration: none;
 }
 .chatInfoButtons {
   display: flex;
@@ -382,9 +382,8 @@ header {
   align-items: center;
   gap: 8px;
   padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  border-top: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   background-color: var(--bg-color);
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
 }
