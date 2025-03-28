@@ -14,22 +14,20 @@
   <link rel="stylesheet" href="css/chat.css" >
 </head>
 <body>
-  <header>
+<header>
     <button class="menu-btn" onclick="toggleMenu()">
-      <span class="material-symbols-outlined">side_navigation</span>
+        <span class="material-symbols-outlined">side_navigation</span>
     </button>
     
-<a href="#" class="logo" id="chatInfoBtn">
-    Soyth <span class="material-symbols-outlined">chevron_right</span>
-</a>
+    <div class="logo-container">
+        <a href="#" class="logo" id="chatInfoBtn">Soyth</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+    </div>
 
-    
-        <button class="btn-logout" onclick="logoutUser()">
-      <span class="material-symbols-outlined">exit_to_app</span>
+    <button class="btn-logout" onclick="logoutUser()">
+        <span class="material-symbols-outlined">exit_to_app</span>
     </button>
-  </header>
-
-  <!-- Sidebar / Contacts Menu -->
+</header>
   <nav class="contacts-menu" id="contactsMenu">
     <h2>Global Chats</h2>
     <ul>
