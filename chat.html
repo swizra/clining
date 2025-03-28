@@ -379,6 +379,19 @@ document.addEventListener('touchend', function(e) {
     contactsMenu.classList.add('open');
   }
 });
+function addTimestampToggle() {
+  // Get all bubble elements that contain messages
+  const bubbles = document.querySelectorAll('.bubble');
+  bubbles.forEach(bubble => {
+    bubble.addEventListener('click', function () {
+      // Toggle the class that reveals the timestamp
+      bubble.classList.toggle('show-timestamp');
+    });
+  });
+}
+
+// Call this after messages are rendered (e.g., at the end of loadMessages)
+addTimestampToggle();
 
   </script>
 </body>
