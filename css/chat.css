@@ -19,7 +19,8 @@ html, body {
   --footer-bg: #f1f1f1;
   --footer-text: #555;
   --logo-color: #333;
-  --outcoming-message: none;
+  --outcoming-message: #0073e6; 
+  --outcoming-text: #fff; 
   --border-color-info-panel: #ddd;
 }
 
@@ -37,7 +38,8 @@ html, body {
     --footer-bg: #1e1e1e;
     --footer-text: #aaa;
     --logo-color: #e0e0e0;
-    --outcoming-message: none;
+    --outcoming-message: #1a73e8;
+    --outcoming-text: #f0f0f0;
     --border-color-info-panel: #333;
   }
 }
@@ -284,7 +286,11 @@ header {
 
 .message.outgoing .bubble {
   background: var(--outcoming-message);
+  color: var(--outcoming-text);
+  border-radius: 12px 12px 0 12px;
+  align-self: flex-end;
 }
+
 
 .message-text {
   word-wrap: break-word;
@@ -298,9 +304,11 @@ header {
 }
 
 .message.outgoing .timestamp {
-  text-align: right;
-  margin-left: 4px;
+  text-align: left;
+  margin-right: 4px;
+  display: block;
 }
+
 
 .message.incoming .timestamp {
   text-align: right;
