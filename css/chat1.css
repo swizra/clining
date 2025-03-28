@@ -2,9 +2,11 @@ html, body {
   overflow-x: hidden;
   max-width: 100vw;
 }
+
 * {
   max-width: 100%;
 }
+
 :root {
   --bg-color: #f9f9f9;
   --text-color: #333;
@@ -58,9 +60,7 @@ html, body {
 html {
   scroll-behavior: smooth;
 }
-.material-icons {
-  color: var(--text-color);
-}
+
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-color);
@@ -320,6 +320,18 @@ header {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.scroll-right-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background-color: var(--accent-color);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .chatInfoPanel {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -373,15 +385,8 @@ header {
   cursor: pointer;
 }
 
-.logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-}
-
-.chatInfoPanel {
-  display: none;
+.message {
+  position: relative;
 }
 
 .bubble {
@@ -399,74 +404,17 @@ header {
   word-break: break-word;
 }
 
-.message.incoming .bubble {
-  color: var(--text-color);
-  border-radius: 12px 12px 12px 0;
-}
-
-.message.outcoming .bubble {
-  background: var(--input-bg);
-  color: var(--text-color);
-  border-radius: 12px 12px 0 0px;
-}
-
-.incoming .bubble {
-  background: var(--input-bg);
-  position: relative;
-}
-
-.chat-messages {
-  flex: 1;
-  padding: 0 10px 12px;
-  padding-bottom: 65px;
-  overflow-y: auto;
-  background: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.message {
-  display: flex;
-  align-items: flex-end;
-  margin: 5px 0;
-  max-width: 90%;
-}
-
-.message.incoming {
-  flex-direction: row;
-  border: none;
-}
-
-.message.outgoing {
-  flex-direction: row-reverse;
-  margin-left: auto;
-}
-
-.message.outgoing .bubble {
-  background: var(--outcoming-message);
-  border: none;
-}
-
-.message-text {
-  word-wrap: break-word;
-}
-
-.message {
-  position: relative;
-}
-
 .timestamp {
   position: absolute;
   font-size: var(--timestamp-font-size);
-  right: 0;
+  right: -60px;
   opacity: 0;
-  transition: opacity 0.3s;
-  padding-right: 20px;
   visibility: hidden;
+  transition: right 0.3s ease, opacity 0.3s ease;
 }
 
 .message:hover .timestamp {
   opacity: 1;
   visibility: visible;
+  right: 0;
 }
