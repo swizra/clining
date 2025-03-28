@@ -205,7 +205,7 @@ header {
   display: flex;
   align-items: flex-end;
   margin: 10px 0;
-  max-width: 100%;
+  max-width: 90%;
 }
 
 .message.incoming {
