@@ -474,6 +474,7 @@ header {
 .hidden-space {
   width: 60px; 
   background-color: var(--bg-color);
-  visibility: hidden; 
+  opacity: 0; 
   z-index: -1;
 }
+
