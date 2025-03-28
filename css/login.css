@@ -87,3 +87,19 @@
   margin-top: 0.5rem;
   font-size: 0.9rem;
 }
+input:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+}
+
+input:-moz-autofill {
+  background-color: transparent !important;
+  -moz-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+}
+
+input:autofill {
+  background-color: transparent !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+}
