@@ -262,3 +262,19 @@ header {
   align-items: center;
   justify-content: center;
 }
+.scroll-to-bottom {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+}
+
+.scroll-to-bottom:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
