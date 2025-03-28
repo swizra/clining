@@ -92,7 +92,6 @@ header {
   transition: all 0.3s ease;
 }
 
-/* Sidebar */
 .contacts-menu {
   position: fixed;
   top: 0;
@@ -150,7 +149,6 @@ header {
   object-fit: cover;
 }
 
-/* Authentication */
 .auth-container {
   display: flex;
   flex-direction: column;
@@ -193,7 +191,6 @@ header {
   color: var(--accent-color);
 }
 
-/* Chat Area */
 .main-container {
   display: none;
   flex: 1;
@@ -361,12 +358,12 @@ header {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* New: Chat Info Panel Styling */
 #chatInfoPanel {
   display: none;
   position: absolute;
   top: 60px;
   left: 20px;
+  right: 20px;
   background: var(--input-bg);
   color: var(--text-color);
   border: 1px solid var(--border-color);
@@ -375,6 +372,8 @@ header {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   z-index: 1100;
   font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 #chatInfoPanel #chatInfoContent {
