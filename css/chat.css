@@ -448,19 +448,25 @@ header {
 .message{
   position:relative;
 }
-.timestamp {
-  position: fixed; 
+/* Ensure the bubble is the relative container */
+.incoming .bubble {
+  position: relative;
+}
+
+.incoming .timestamp {
+  position: absolute;
   right: -60px; 
   top: 50%;
   transform: translateY(-50%); 
-  opacity: 1; 
+  opacity: 0.5; 
   white-space: nowrap; 
   transition: right 0.3s ease, opacity 0.3s ease;
   font-size: var(--timestamp-font-size);
   color: var(--timestamp-color);
 }
 
+/* When bubble has the 'show-timestamp' class, slide the timestamp in */
 .bubble.show-timestamp .timestamp {
-  right: 10px; 
+  right: 10px; /* Moves the timestamp into view */
   opacity: 1;
 }
