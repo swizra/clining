@@ -166,6 +166,36 @@
         scrollToBottom();
       }
     }
+let touchStartX = 0; // To store the starting X coordinate of the touch
+let touchEndX = 0; // To store the ending X coordinate of the touch
+
+// Function to detect swipe gestures
+function handleSwipeGesture(event) {
+  // Get the touch position on the X axis
+  touchEndX = event.changedTouches[0].screenX;
+
+  // Check if the swipe was from right to left (a negative change in X)
+  if (touchStartX - touchEndX > 50) {  // 50px threshold for swipe recognition
+    revealTimestamps();
+  }
+}
+
+// Function to reveal timestamps
+function revealTimestamps() {
+  const timestamps = document.querySelectorAll('.timestamp');
+  timestamps.forEach((timestamp) => {
+    timestamp.classList.add('visible');
+  });
+}
+
+// Add event listeners for touchstart and touchend to detect swipes
+document.addEventListener('touchstart', (event) => {
+  touchStartX = event.touches[0].screenX; // Record the starting touch point
+});
+
+document.addEventListener('touchend', handleSwipeGesture);
+
+// Function to load messages
 function loadMessages() {
   chatHeader.textContent =
     document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
@@ -211,17 +241,11 @@ function loadMessages() {
           bubble.appendChild(time);
           msgDiv.appendChild(bubble);
           chatMessages.appendChild(msgDiv);
-
-          // After appending the message, add the 'visible' class to the timestamp
-          setTimeout(() => {
-            time.classList.add('visible');
-          }, 100); // Small delay to allow for message to appear
         }
       });
       chatMessages.scrollTop = chatMessages.scrollHeight;
     });
 }
-
 
 
     function selectRoom(room, element) {
