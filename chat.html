@@ -11,16 +11,14 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <link rel="stylesheet" href="css/chat.css" >
+  <link rel="stylesheet" href="chat.css" >
 </head>
 <body>
   <header>
     <button class="menu-btn" onclick="toggleMenu()">
-      <span class="material-symbols-outlined">
-side_navigation
-</span>
+      <span class="material-symbols-outlined">side_navigation</span>
     </button>
-    <!-- Added id="chatInfoBtn" to attach click event; clicking now shows the info panel -->
+    <!-- Info button attached to logo -->
     <a href="#" class="logo" id="chatInfoBtn">Soyth</a>
     <button class="btn-logout" onclick="logoutUser()">
       <span class="material-icons">logout</span>
@@ -65,20 +63,14 @@ side_navigation
       </li>
     </ul>
   </nav>
-  <div class="auth-container" id="authContainer">
-    <h2 id="authTitle">Login</h2>
-    <input type="email" id="emailInput" placeholder="Email" />
-    <input type="password" id="passwordInput" placeholder="Password" />
-    <button id="authButton" onclick="loginOrRegister()">Login</button>
-    <div class="toggle-auth" onclick="toggleAuth()">Don't have an account? Register here.</div>
-    <div id="authError" style="color: red; margin-top:10px;"></div>
-  </div>
+
+  <!-- Chat Container -->
   <div class="main-container" id="chatContainer">
     <div class="chat-header" id="chatHeader">White</div>
     <div class="chat-messages" id="chatMessages">
-        <div id="scrollToBottomArrow" class="scroll-to-bottom">
-    <span class="material-icons">keyboard_arrow_down</span>
-  </div>
+      <div id="scrollToBottomArrow" class="scroll-to-bottom">
+        <span class="material-icons">keyboard_arrow_down</span>
+      </div>
     </div>
     <div class="chat-input-area">
       <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
@@ -87,9 +79,12 @@ side_navigation
       </button>
     </div>
   </div>
+
+  <!-- Chat Info Panel -->
   <div id="chatInfoPanel" class="chatInfoPanel">
     <div id="chatInfoContent"></div>
   </div>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
@@ -106,13 +101,7 @@ side_navigation
     const auth = firebase.auth();
     const db = firebase.database();
     const logo = document.querySelector('.logo');
-    const authContainer = document.getElementById('authContainer');
     const chatContainer = document.getElementById('chatContainer');
-    const authTitle = document.getElementById('authTitle');
-    const authButton = document.getElementById('authButton');
-    const emailInput = document.getElementById('emailInput');
-    const passwordInput = document.getElementById('passwordInput');
-    const authError = document.getElementById('authError');
     const chatHeader = document.getElementById('chatHeader');
     const chatMessages = document.getElementById('chatMessages');
     const chatInput = document.getElementById('chatInput');
@@ -124,49 +113,23 @@ side_navigation
       contactsMenu.classList.toggle('open');
     }
 
-    let isLogin = true;
-    function toggleAuth() {
-      isLogin = !isLogin;
-      authTitle.textContent = isLogin ? 'Login' : 'Register';
-      authButton.textContent = isLogin ? 'Login' : 'Register';
-      document.querySelector('.toggle-auth').textContent = isLogin ? "Don't have an account? Register here." : "Already have an account? Login here.";
-      authError.textContent = '';
-    }
-
-    function loginOrRegister() {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      authError.textContent = '';
-      if(isLogin) {
-        auth.signInWithEmailAndPassword(email, password)
-          .catch(error => authError.textContent = error.message);
-      } else {
-        auth.createUserWithEmailAndPassword(email, password)
-          .then(userCredential => {
-            return userCredential.user.updateProfile({ displayName: email.split('@')[0] });
-          })
-          .catch(error => authError.textContent = error.message);
-      }
-    }
-
-    function logoutUser() {
-      auth.signOut();
-      chatMessages.innerHTML = '';
-      authContainer.style.display = 'flex';
-      chatContainer.style.display = 'none';
-      logo.textContent = 'Soyth';
-    }
-
+    // Redirect if user is not logged in
     auth.onAuthStateChanged(user => {
       if (user) {
-        authContainer.style.display = 'none';
+        // User is logged in: show chat interface and load messages.
         chatContainer.style.display = 'flex';
         loadMessages();
       } else {
-        authContainer.style.display = 'flex';
-        chatContainer.style.display = 'none';
+        // User is not logged in: redirect to chat.html (login page).
+        window.location.href = "chat.html";
       }
     });
+
+    function logoutUser() {
+      auth.signOut();
+      // Optionally, you might want to redirect the user after logout.
+      window.location.href = "chat.html";
+    }
 
     function sendMessage() {
       const messageText = chatInput.value.trim();
@@ -181,7 +144,6 @@ side_navigation
 
         chatInput.value = '';
         chatInput.style.height = '40px';
-
         scrollToBottom();
       }
     }
@@ -264,7 +226,7 @@ side_navigation
     const chatInfoContent = document.getElementById('chatInfoContent');
 
     chatInfoBtn.addEventListener('click', function(e) {
-      e.preventDefault(); // Prevent default href behavior (scroll to top)
+      e.preventDefault();
       showChatInfo();
     });
 
