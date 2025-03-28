@@ -87,6 +87,9 @@
   </button>
 </div>
   </div>
+<div id="scrollToBottomArrow" class="scroll-to-bottom">
+  <span class="material-icons">keyboard_arrow_down</span>
+</div>
 
   <!-- Firebase & App Logic -->
   <script>
@@ -198,8 +201,6 @@ function sendMessage() {
   }
 }
 
-
-    // Load messages in realtime for the current room
     let currentRoom = 'globalChat1'; // default room
     function loadMessages() {
       // Update header based on room selection
@@ -231,15 +232,30 @@ function sendMessage() {
     }
 
     // Switch chat rooms
-    function selectRoom(room, element) {
-      currentRoom = room;
-      // Remove active class from all contacts
-      document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
-      element.classList.add('active');
-      loadMessages();
-      // Optionally close sidebar after selection on mobile
-      contactsMenu.classList.remove('open');
-    }
+// Listen for auth state changes
+auth.onAuthStateChanged(user => {
+  if (user) {
+    authContainer.style.display = 'none';
+    chatContainer.style.display = 'flex';
+    loadMessages();
+    scrollToBottom(); // Scroll to the bottom on login
+  } else {
+    authContainer.style.display = 'flex';
+    chatContainer.style.display = 'none';
+  }
+});
+
+// Switch chat rooms
+function selectRoom(room, element) {
+  currentRoom = room;
+  // Remove active class from all contacts
+  document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
+  element.classList.add('active');
+  loadMessages();
+  scrollToBottom(); // Scroll to the bottom when switching rooms
+  // Optionally close sidebar after selection on mobile
+  contactsMenu.classList.remove('open');
+}
   </script>
   <script>
     // Get the chat input element
@@ -250,11 +266,9 @@ chatInput.addEventListener('input', function () {
   // Reset height to 'auto' to recalculate the new height based on content
   this.style.height = 'auto';
   
-  // Set new height, but ensure it doesn't exceed 30% of the viewport height
   this.style.height = Math.min(this.scrollHeight, window.innerHeight * 0.3) + 'px';
 });
 
-// Handle sending the message
 function sendMessage() {
   const messageText = chatInput.value.trim();
   if (messageText !== '') {
@@ -269,11 +283,30 @@ function sendMessage() {
 
     // Clear the input field after sending the message
     chatInput.value = '';
-    
+
     // Reset the input height to the initial height after sending
     chatInput.style.height = '40px';
+
+    // Scroll to the bottom of the chat container after sending the message
+    scrollToBottom();
   }
 }
+
+function scrollToBottom() {
+  // Check if user is at the bottom of the chat
+  const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight;
+
+  // Scroll to the bottom if not already at the bottom
+  if (!isAtBottom) {
+    document.getElementById('scrollToBottomArrow').style.display = 'block';
+  } else {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+}
+document.getElementById('scrollToBottomArrow').addEventListener('click', function() {
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  document.getElementById('scrollToBottomArrow').style.display = 'none'; // Hide the arrow
+});
 
   </script>
 </body>
