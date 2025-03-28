@@ -62,7 +62,7 @@
   transition: border-color 0.3s, background-color 0.3s;
 }
 #passwordInput {
-  paddint-left: 1.3rem;
+  paddint-right: 2rem;
 }
 
 #emailInput:focus,
