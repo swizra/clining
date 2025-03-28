@@ -1,6 +1,6 @@
 .contact-section {
   padding: 60px 25px;
-  background-color: var(--bg-color);
+  background-color: var(--border-color-info-panel);
   text-align: center;
 }
 .container {
