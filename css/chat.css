@@ -14,7 +14,7 @@ html, body {
   --btn-bg: #0073e6;
   --btn-hover: #005bb5;
   --sidebar-bg: rgba(255, 255, 255, 0.98);
-  --info-panel-bg: rgba(255, 255, 255, 0.98);
+  --info-panel-bg: rgba(255, 255, 255, 0.8);
   --input-bg: #fff;
   --footer-bg: #f1f1f1;
   --footer-text: #555;
@@ -36,7 +36,7 @@ html, body {
     --btn-bg: #bb86fc;
     --btn-hover: #9a67ea;
     --sidebar-bg: rgba(18, 18, 18, 0.98);
-    --info-panel-bg: rgba(18, 18, 18, 0.98);
+    --info-panel-bg: rgba(18, 18, 18, 0.8);
     --input-bg: #1e1e1e;
     --footer-bg: #1e1e1e;
     --footer-text: #aaa;
