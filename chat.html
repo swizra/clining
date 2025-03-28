@@ -64,23 +64,22 @@
         <span>Pink</span>
       </li>
     </ul>
-  </nav>
+ </nav>
   <div class="main-container" id="chatContainer">
     <div class="chat-header" id="chatHeader">White</div>
     <div class="chat-messages" id="chatMessages">
       <div id="scrollToBottomArrow" class="scroll-to-bottom">
-<span class="material-icons" style="margin-left: 10px; margin-right: 5px;">settings</span>
+        <span class="material-icons">settings</span>
       </div>
     </div>
     <div class="chat-input-area">
       <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
       <button class="sendMessageBtn" onclick="sendMessage()">
-      <span class="material-symbols-outlined">
-      send
-      </span>
+        <span class="material-symbols-outlined">send</span>
       </button>
     </div>
   </div>
+
 
 <div id="chatInfoPanel" class="chatInfoPanel">
   <div id="chatInfoContent"></div>
@@ -166,6 +165,8 @@
         scrollToBottom();
       }
     }
+
+    
     function loadMessages() {
       chatHeader.textContent =
         document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
@@ -206,13 +207,17 @@
 
               bubble.appendChild(messageText);
               msgDiv.appendChild(bubble);
-              msgDiv.appendChild(time); // Append timestamp to message container
+              msgDiv.appendChild(time); // Timestamp now outside bubble
               chatMessages.appendChild(msgDiv);
             }
           });
           chatMessages.scrollTop = chatMessages.scrollHeight;
         });
     }
+
+
+
+    
     function selectRoom(room, element) {
       currentRoom = room;
       document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
