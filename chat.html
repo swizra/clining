@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>Chat | Soyth</title>
+  <title>Soyth Chat</title>
   <link rel="manifest" href="/manifest.json" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -11,19 +11,23 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/chat.css" >
 </head>
 <body>
+  <!-- Header -->
   <header>
     <button class="menu-btn" onclick="toggleMenu()">
-      <span class="material-symbols-outlined">side_navigation</span>
+<span class="material-symbols-outlined">
+side_navigation
+</span>
     </button>
-    <a href="login.html" class="logo" id="chatInfoBtn">Soyth</a>
+    <a href="#" class="logo">Soyth</a>
     <button class="btn-logout" onclick="logoutUser()">
       <span class="material-icons">logout</span>
     </button>
   </header>
 
+  <!-- Sidebar / Contacts Menu -->
   <nav class="contacts-menu" id="contactsMenu">
     <h2>Global Chats</h2>
     <ul>
@@ -62,12 +66,21 @@
     </ul>
   </nav>
 
+  <!-- Authentication Container -->
+  <div class="auth-container" id="authContainer">
+    <h2 id="authTitle">Login</h2>
+    <input type="email" id="emailInput" placeholder="Email" />
+    <input type="password" id="passwordInput" placeholder="Password" />
+    <button id="authButton" onclick="loginOrRegister()">Login</button>
+    <div class="toggle-auth" onclick="toggleAuth()">Don't have an account? Register here.</div>
+    <div id="authError" style="color: red; margin-top:10px;"></div>
+  </div>
+
+  <!-- Chat Container -->
   <div class="main-container" id="chatContainer">
     <div class="chat-header" id="chatHeader">White</div>
     <div class="chat-messages" id="chatMessages">
-      <div id="scrollToBottomArrow" class="scroll-to-bottom">
-        <span class="material-icons">keyboard_arrow_down</span>
-      </div>
+      <!-- Chat messages will load here -->
     </div>
     <div class="chat-input-area">
       <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="if(event.key==='Enter') sendMessage()" />
@@ -77,16 +90,17 @@
     </div>
   </div>
 
-  <div id="chatInfoPanel" class="chatInfoPanel">
-    <div id="chatInfoContent"></div>
+  <div id="scrollToBottomArrow" class="scroll-to-bottom">
+    <span class="material-icons">keyboard_arrow_down</span>
   </div>
 
+  <!-- Firebase & App Logic -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyD4uvw6hjx2xinfYIUcGDQw2IqFYrIbnbA",
       authDomain: "soyth-chat.firebaseapp.com",
       projectId: "soyth-chat",
-      storageBucket: "soyth-chat.appspot.com",
+      storageBucket: "soyth-chat.firebasestorage.app",
       messagingSenderId: "443722955446",
       appId: "1:443722955446:web:6745ef0fa305673bb88417",
       measurementId: "G-H7FQJVEW8Q",
@@ -96,37 +110,68 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.database();
-
     const logo = document.querySelector('.logo');
+    const authContainer = document.getElementById('authContainer');
     const chatContainer = document.getElementById('chatContainer');
+    const authTitle = document.getElementById('authTitle');
+    const authButton = document.getElementById('authButton');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const authError = document.getElementById('authError');
     const chatHeader = document.getElementById('chatHeader');
     const chatMessages = document.getElementById('chatMessages');
     const chatInput = document.getElementById('chatInput');
     const contactsMenu = document.getElementById('contactsMenu');
-    const chatInfoBtn = document.getElementById('chatInfoBtn');
-    const chatInfoPanel = document.getElementById('chatInfoPanel');
-    const chatInfoContent = document.getElementById('chatInfoContent');
 
     let currentRoom = 'globalChat1';
-
-    // Check Authentication
-    auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "login.html";
-      } else {
-        loadMessages();
-      }
-    });
-
-    function logoutUser() {
-      auth.signOut().then(() => {
-        window.location.href = "login.html";
-      });
-    }
 
     function toggleMenu() {
       contactsMenu.classList.toggle('open');
     }
+
+    let isLogin = true;
+    function toggleAuth() {
+      isLogin = !isLogin;
+      authTitle.textContent = isLogin ? 'Login' : 'Register';
+      authButton.textContent = isLogin ? 'Login' : 'Register';
+      document.querySelector('.toggle-auth').textContent = isLogin ? "Don't have an account? Register here." : "Already have an account? Login here.";
+      authError.textContent = '';
+    }
+
+    function loginOrRegister() {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+      authError.textContent = '';
+      if(isLogin) {
+        auth.signInWithEmailAndPassword(email, password)
+          .catch(error => authError.textContent = error.message);
+      } else {
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(userCredential => {
+            return userCredential.user.updateProfile({ displayName: email.split('@')[0] });
+          })
+          .catch(error => authError.textContent = error.message);
+      }
+    }
+
+    function logoutUser() {
+      auth.signOut();
+      chatMessages.innerHTML = '';
+      authContainer.style.display = 'flex';
+      chatContainer.style.display = 'none';
+      logo.textContent = 'Soyth';
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        authContainer.style.display = 'none';
+        chatContainer.style.display = 'flex';
+        loadMessages();
+      } else {
+        authContainer.style.display = 'flex';
+        chatContainer.style.display = 'none';
+      }
+    });
 
     function sendMessage() {
       const messageText = chatInput.value.trim();
@@ -138,62 +183,68 @@
           timestamp: firebase.database.ServerValue.TIMESTAMP,
           room: currentRoom
         });
+
         chatInput.value = '';
         chatInput.style.height = '40px';
+
         scrollToBottom();
       }
     }
 
-    function loadMessages() {
-      chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
-      db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
-        chatMessages.innerHTML = '';
-        snapshot.forEach(childSnapshot => {
-          const msg = childSnapshot.val();
-          if (msg.room === currentRoom) {
-            const msgDiv = document.createElement('div');
-            const isOutgoing = msg.uid === auth.currentUser.uid;
-            msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+function loadMessages() {
+  chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+  db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
+    chatMessages.innerHTML = '';
+    snapshot.forEach(childSnapshot => {
+      const msg = childSnapshot.val();
+      if (msg.room === currentRoom) {
+        const msgDiv = document.createElement('div');
+        const isOutgoing = msg.uid === auth.currentUser.uid;
+        msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
 
-            const avatar = document.createElement('div');
-            avatar.classList.add('avatar');
-            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+        const avatar = document.createElement('div');
+        avatar.classList.add('avatar');
+        avatar.textContent = msg.displayName.charAt(0).toUpperCase();
 
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
 
-            const messageText = document.createElement('div');
-            messageText.classList.add('message-text');
-            messageText.textContent = msg.text;
+        const messageText = document.createElement('div');
+        messageText.classList.add('message-text');
+        messageText.textContent = msg.text;
 
-            const time = document.createElement('div');
-            time.classList.add('timestamp');
-            const date = new Date(msg.timestamp);
-            time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const time = document.createElement('div');
+        time.classList.add('timestamp');
+        const date = new Date(msg.timestamp);
+        time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            bubble.appendChild(messageText);
-            bubble.appendChild(time);
+        bubble.appendChild(messageText);
+        bubble.appendChild(time);
 
-            msgDiv.appendChild(avatar);
-            msgDiv.appendChild(bubble);
-            chatMessages.appendChild(msgDiv);
-          }
-        });
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      });
-    }
+        msgDiv.appendChild(avatar);
+        msgDiv.appendChild(bubble);
+        chatMessages.appendChild(msgDiv);
+      }
+    });
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
+}
 
-    function selectRoom(room, element) {
-      currentRoom = room;
-      document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
-      element.classList.add('active');
-      const roomName = element.querySelector('span').textContent;
-      chatHeader.textContent = roomName;
-      logo.textContent = roomName;
-      loadMessages();
-      scrollToBottom();
-      contactsMenu.classList.remove('open');
-    }
+
+function selectRoom(room, element) {
+  currentRoom = room;
+  document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
+  element.classList.add('active');
+
+  const roomName = element.querySelector('span').textContent;
+  chatHeader.textContent = roomName;
+  logo.textContent = roomName; // 👈 Swap logo
+
+  loadMessages();
+  scrollToBottom();
+  contactsMenu.classList.remove('open');
+}
+
 
     function scrollToBottom() {
       const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight;
@@ -214,42 +265,6 @@
       this.style.height = Math.min(this.scrollHeight, window.innerHeight * 0.3) + 'px';
     });
 
-    chatInfoBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      showChatInfo();
-    });
-
-    function showChatInfo() {
-      db.ref('messages').orderByChild('timestamp').once('value', snapshot => {
-        let messages = [];
-        snapshot.forEach(child => {
-          const msg = child.val();
-          if (msg.room === currentRoom) {
-            messages.push(msg);
-          }
-        });
-        if (messages.length === 0) {
-          chatInfoContent.innerHTML = "No messages in this room.";
-        } else {
-          messages.sort((a, b) => b.timestamp - a.timestamp);
-          const latestMessage = messages[0];
-          const date = new Date(latestMessage.timestamp);
-          chatInfoContent.innerHTML = `
-            <strong>Room:</strong> ${currentRoom}<br>
-            <strong>Last message:</strong> ${latestMessage.text}<br>
-            <strong>By:</strong> ${latestMessage.displayName}<br>
-            <strong>At:</strong> ${date.toLocaleString()}
-          `;
-        }
-        chatInfoPanel.style.display = 'block';
-      });
-    }
-
-    chatInfoPanel.addEventListener('click', function(e) {
-      if (e.target === chatInfoPanel) {
-        chatInfoPanel.style.display = 'none';
-      }
-    });
   </script>
 </body>
 </html>
