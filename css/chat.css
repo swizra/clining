@@ -382,12 +382,8 @@ header {
   align-items: center;
   gap: 8px;
   padding: 10px;
-  border: none;
-  background-color: #f1f1f1;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--outcoming-message);
   border-radius: 5px;
   cursor: pointer;
-}
-
-.chatInfoButtons button:hover {
-  background-color: #ddd;
 }
