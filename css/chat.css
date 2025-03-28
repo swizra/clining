@@ -12,6 +12,7 @@
   --footer-text: #555;
   --logo-color: #333;
   --outcoming-message: none;
+  --border-color-info-panel: #ddd;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,6 +30,7 @@
     --footer-text: #aaa;
     --logo-color: #e0e0e0;
     --outcoming-message: none;
+    --border-color-info-panel: none;
   }
 }
 
@@ -367,7 +369,7 @@ header {
   right: 20px;
   background: var(--bg-color:);
   color: var(--text-color);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color-info-panel);
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
