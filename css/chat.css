@@ -408,7 +408,9 @@ header {
   color: var(--text-color);
   border-radius: 12px 12px 0 12px;
 }
-
+.incoming .bubble {
+  position: relative;
+}
 .chat-messages {
   flex: 1;
   padding: 0 10px 12px;
@@ -449,7 +451,7 @@ header {
   position:relative;
 }
 .timestamp {
-  position: fixed; 
+  position: absolute;
   right: -60px; 
   top: 50%;
   transform: translateY(-50%); 
