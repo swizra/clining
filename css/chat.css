@@ -224,7 +224,6 @@ header {
   max-width: 32px;
   max-height: 32px;
   border-radius: 50%;
-  background: #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -232,6 +231,30 @@ header {
   font-weight: bold;
   font-size: 1rem;
   margin: 0 8px;
+}
+
+.green {
+  background: linear-gradient(135deg, #4CAF50 95%, #43A047 5%);
+}
+
+.blue {
+  background: linear-gradient(135deg, #2196F3 95%, #1E88E5 5%);
+}
+
+.orange {
+  background: linear-gradient(135deg, #FF9800 95%, #FB8C00 5%);
+}
+
+.red {
+  background: linear-gradient(135deg, #F44336 95%, #E53935 5%);
+}
+
+.purple {
+  background: linear-gradient(135deg, #9C27B0 95%, #8E24AA 5%);
+}
+
+.gray {
+  background: linear-gradient(135deg, #607D8B 95%, #546E7A 5%);
 }
 
 .bubble {
