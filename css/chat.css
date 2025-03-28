@@ -29,7 +29,7 @@ html, body {
   :root {
     --bg-color: black;
     --text-color: white;
-    --header-bg: rgba(18, 18, 18, 0.95);
+    --header-bg: rgb(0, 0, 0);
     --border-color: #333;
     --accent-color: #bb86fc;
     --btn-bg: #bb86fc;
