@@ -38,13 +38,26 @@
 }
 
 .form-group {
+  position: relative;
   margin-bottom: 1rem;
+}
+
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--text-color);
+  transition: all 0.2s ease;
+  pointer-events: none;
 }
 
 #emailInput,
 #passwordInput {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
+  padding-left: 2rem; /* Adjusted padding for label */
   border-radius: 30px;
   border: 1px solid var(--border-color);
   background: var(--footer-bg);
@@ -57,6 +70,24 @@
 #passwordInput:focus {
   border-color: var(--accent-color);
   outline: none;
+}
+
+#emailInput:focus + label,
+#passwordInput:focus + label,
+#emailInput:not(:placeholder-shown) + label,
+#passwordInput:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 1rem;
+  font-size: 0.8rem;
+  color: var(--accent-color);
+}
+
+/* Autofill Styling */
+#emailInput:-webkit-autofill,
+#passwordInput:-webkit-autofill {
+  background-color: var(--footer-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
 }
 
 #loginButton {
@@ -86,10 +117,4 @@
   color: red;
   margin-top: 0.5rem;
   font-size: 0.9rem;
-}
-#emailInput:-webkit-autofill,
-#passwordInput:-webkit-autofill {
-  background-color: var(--footer-bg) !important;
-  color: var(--text-color) !important;
-  border: 1px solid var(--border-color) !important;
 }
