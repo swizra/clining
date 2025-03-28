@@ -1,3 +1,4 @@
+/* Auth Section Container */
 #authSection {
   display: flex;
   justify-content: center;
@@ -7,16 +8,21 @@
   min-height: 100vh;
 }
 
+/* Auth Box */
 .auth-container {
   background: var(--header-bg);
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(245, 245, 245, 0.3), inset 0 0 20px rgba(245, 245, 245, 0.3); 
-  border: var(--border-color-info-panel);  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 
+              inset 0 0 8px rgba(245, 245, 245, 0.3), 
+              inset 0 0 20px rgba(245, 245, 245, 0.3);
+  border: var(--border-color-info-panel);
+  width: 100%;
   max-width: 400px;
   text-align: center;
 }
 
+/* Heading Style */
 .auth-container h2 {
   margin-bottom: 1.5rem;
   color: var(--text-color);
@@ -25,8 +31,8 @@
 }
 
 .auth-container h2::after {
-  display: none;
   content: '';
+  display: none;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -37,10 +43,13 @@
   border-radius: 10px;
 }
 
+/* Form Group Spacing */
 .form-group {
   margin-bottom: 1rem;
+  position: relative;
 }
 
+/* Input Fields */
 #emailInput,
 #passwordInput {
   width: 100%;
@@ -50,7 +59,7 @@
   background: var(--footer-bg);
   color: var(--text-color);
   font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, background-color 0.3s;
 }
 
 #emailInput:focus,
@@ -59,17 +68,40 @@
   outline: none;
 }
 
+/* Toggle Password Icon */
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.toggle-password:hover {
+  color: var(--accent-color);
+}
+
+/* Login Button */
 #loginButton {
   background-color: var(--btn-join-bg);
   color: #fff;
   width: 50%;
   margin-top: 1rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 #loginButton:hover {
   background-color: var(--btn-join-hover);
 }
 
+/* Toggle Auth Text */
 .toggle-auth {
   margin-top: 1rem;
   color: var(--accent-color);
@@ -82,11 +114,14 @@
   color: var(--btn-join-hover);
 }
 
+/* Error Message */
 #errorMsg {
   color: red;
   margin-top: 0.5rem;
   font-size: 0.9rem;
 }
+
+/* Autofill Overrides */
 input:-webkit-autofill {
   background-color: transparent !important;
   -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
