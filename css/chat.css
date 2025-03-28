@@ -16,6 +16,12 @@
 .message.incoming .bubble {
   background: var(--input-bg);
   color: var(--text-color);
+  border-radius: 12px 12px 12px 0;
+}
+.message.outcoming .bubble {
+  background: var(--input-bg);
+  color: var(--text-color);
+  border-radius: 12px 12px 0 12px;
 }
 
 .chat-messages {
