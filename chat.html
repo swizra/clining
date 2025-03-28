@@ -340,6 +340,17 @@ document.addEventListener('click', function(e) {
     }
   }
 });
+    if (!isOutgoing) {
+  const avatar = document.createElement('div');
+  avatar.classList.add('avatar');
+  // Assign the color based on the displayName (or email)
+  const avatarColorClass = getAvatarColor(msg.displayName);
+  avatar.classList.add(avatarColorClass);
+  // Display the first letter
+  avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+  msgDiv.appendChild(avatar);
+}
+
   </script>
 </body>
 </html>
