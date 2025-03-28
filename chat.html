@@ -318,6 +318,17 @@ document.getElementById('themeToggleBtn').addEventListener('click', function() {
       return 'gray'; // Fallback color if none match
     }
   }
+    // Hide chatInfoPanel if click is outside of it and outside of the chatInfoBtn
+document.addEventListener('click', function(e) {
+  // Check if the panel is visible
+  if (chatInfoPanel.style.display === 'block') {
+    // If the clicked element is not within the panel and not the chatInfoBtn
+    if (!chatInfoPanel.contains(e.target) && !chatInfoBtn.contains(e.target)) {
+      chatInfoPanel.style.display = 'none';
+    }
+  }
+});
+
   </script>
 </body>
 </html>
