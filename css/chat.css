@@ -449,7 +449,8 @@ header {
 }
 /* Initially move the timestamps off-screen */
 .timestamp {
-  position: relative;
+  position: absolute;
+  font-size: var(--timestamp-font-size);
   left: -60px; /* Move timestamp to the right */
   opacity: 0; /* Hide the timestamp initially */
   transition: left 0.3s ease, opacity 0.3s ease; /* Smooth transition */
@@ -457,6 +458,7 @@ header {
 
 /* Make the timestamp visible after swipe */
 .timestamp.visible {
+  font-size: var(--timestamp-font-size);
   left: 0; /* Move timestamp to its original position */
   opacity: 1; /* Make the timestamp visible */
 }
