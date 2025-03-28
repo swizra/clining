@@ -166,44 +166,50 @@
       }
     }
 
-    function loadMessages() {
-      chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
-      db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
-        chatMessages.innerHTML = '';
-        snapshot.forEach(childSnapshot => {
-          const msg = childSnapshot.val();
-          if (msg.room === currentRoom) {
-            const msgDiv = document.createElement('div');
-            const isOutgoing = msg.uid === auth.currentUser.uid;
-            msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+function loadMessages() {
+    chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+    db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
+      chatMessages.innerHTML = '';
+      snapshot.forEach(childSnapshot => {
+        const msg = childSnapshot.val();
+        if (msg.room === currentRoom) {
+          const msgDiv = document.createElement('div');
+          const isOutgoing = msg.uid === auth.currentUser.uid;
+          msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
 
-            const avatar = document.createElement('div');
-            avatar.classList.add('avatar');
-            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+          // Create avatar element and set its color.
+          const avatar = document.createElement('div');
+          avatar.classList.add('avatar');
+          // Assign the color based on the displayName (or email)
+          const avatarColorClass = getAvatarColor(msg.displayName);
+          avatar.classList.add(avatarColorClass);
+          // Display the first letter
+          avatar.textContent = msg.displayName.charAt(0).toUpperCase();
 
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
+          // Create message bubble with text and timestamp.
+          const bubble = document.createElement('div');
+          bubble.classList.add('bubble');
 
-            const messageText = document.createElement('div');
-            messageText.classList.add('message-text');
-            messageText.textContent = msg.text;
+          const messageText = document.createElement('div');
+          messageText.classList.add('message-text');
+          messageText.textContent = msg.text;
 
-            const time = document.createElement('div');
-            time.classList.add('timestamp');
-            const date = new Date(msg.timestamp);
-            time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const time = document.createElement('div');
+          time.classList.add('timestamp');
+          const date = new Date(msg.timestamp);
+          time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            bubble.appendChild(messageText);
-            bubble.appendChild(time);
+          bubble.appendChild(messageText);
+          bubble.appendChild(time);
 
-            msgDiv.appendChild(avatar);
-            msgDiv.appendChild(bubble);
-            chatMessages.appendChild(msgDiv);
-          }
-        });
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+          msgDiv.appendChild(avatar);
+          msgDiv.appendChild(bubble);
+          chatMessages.appendChild(msgDiv);
+        }
       });
-    }
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+  }
 
     function selectRoom(room, element) {
       currentRoom = room;
@@ -297,6 +303,29 @@ document.getElementById('themeToggleBtn').addEventListener('click', function() {
   darkMode = !darkMode;
   this.innerHTML = `<span class="material-icons">${darkMode ? 'light_mode' : 'dark_mode'}</span> Toggle Theme`;
 });
+  </script>
+  <script>
+    <script>
+  // Function to get the color class based on the first character.
+  function getAvatarColor(displayName) {
+    // Get the first character and convert it to lowercase
+    const firstChar = displayName.trim()[0].toLowerCase();
+
+    // Define five color groups.
+    if (/[a-r]/.test(firstChar)) {
+      return 'green';
+    } else if (/[s-z]/.test(firstChar)) {
+      return 'blue';
+    } else if (/[0-3]/.test(firstChar)) {
+      return 'orange';
+    } else if (/[4-6]/.test(firstChar)) {
+      return 'red';
+    } else if (/[7-9]/.test(firstChar)) {
+      return 'purple';
+    } else {
+      return 'gray'; // Fallback color if none match
+    }
+  }
   </script>
 </body>
 </html>
