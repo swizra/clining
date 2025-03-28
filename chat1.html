@@ -143,49 +143,61 @@
       }
     }
 
-    function loadMessages() {
-      chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
-      db.ref('messages')
-        .orderByChild('timestamp')
-        .on('value', snapshot => {
-          chatMessages.innerHTML = '';
-          snapshot.forEach(childSnapshot => {
-            const msg = childSnapshot.val();
-            if (msg.room === currentRoom) {
-              const msgDiv = document.createElement('div');
-              const isOutgoing = msg.uid === auth.currentUser.uid;
-              msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+function loadMessages() {
+  chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+  db.ref('messages')
+    .orderByChild('timestamp')
+    .on('value', snapshot => {
+      chatMessages.innerHTML = '';
+      snapshot.forEach(childSnapshot => {
+        const msg = childSnapshot.val();
+        if (msg.room === currentRoom) {
+          const msgDiv = document.createElement('div');
+          const isOutgoing = msg.uid === auth.currentUser.uid;
+          msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
 
-              if (!isOutgoing) {
-                const avatar = document.createElement('div');
-                avatar.classList.add('avatar');
-                const avatarColorClass = getAvatarColor(msg.displayName);
-                avatar.classList.add(avatarColorClass);
-                avatar.textContent = msg.displayName.charAt(0).toUpperCase();
-                msgDiv.appendChild(avatar);
-              }
+          if (!isOutgoing) {
+            const avatar = document.createElement('div');
+            avatar.classList.add('avatar');
+            const avatarColorClass = getAvatarColor(msg.displayName);
+            avatar.classList.add(avatarColorClass);
+            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+            msgDiv.appendChild(avatar);
+          }
 
-              const bubble = document.createElement('div');
-              bubble.classList.add('bubble');
+          const bubble = document.createElement('div');
+          bubble.classList.add('bubble');
 
-              const messageText = document.createElement('div');
-              messageText.classList.add('message-text');
-              messageText.textContent = msg.text;
+          const messageText = document.createElement('div');
+          messageText.classList.add('message-text');
+          messageText.textContent = msg.text;
 
-              const time = document.createElement('div');
-              time.classList.add('timestamp');
-              const date = new Date(msg.timestamp);
-              time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const time = document.createElement('div');
+          time.classList.add('timestamp');
+          const date = new Date(msg.timestamp);
+          time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-              bubble.appendChild(messageText);
-              bubble.appendChild(time);
-              msgDiv.appendChild(bubble);
-              chatMessages.appendChild(msgDiv);
-            }
-          });
-          chatMessages.scrollTop = chatMessages.scrollHeight;
-        });
-    }
+          bubble.appendChild(messageText);
+          bubble.appendChild(time);
+          msgDiv.appendChild(bubble);
+
+          if (isOutgoing) {
+            const invisibleElement = document.createElement('div');
+            invisibleElement.style.position = 'absolute';
+            invisibleElement.style.width = '60px';
+            invisibleElement.style.height = '60px';
+            invisibleElement.style.opacity = '0';
+            invisibleElement.style.top = '0';
+            invisibleElement.style.right = '0';
+            msgDiv.appendChild(invisibleElement);
+          }
+
+          chatMessages.appendChild(msgDiv);
+        }
+      });
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+}
 
     function selectRoom(room, element) {
       currentRoom = room;
