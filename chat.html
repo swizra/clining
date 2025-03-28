@@ -166,10 +166,12 @@
         scrollToBottom();
       }
     }
-
 function loadMessages() {
-    chatHeader.textContent = document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
-    db.ref('messages').orderByChild('timestamp').on('value', snapshot => {
+  chatHeader.textContent =
+    document.querySelector('.contacts-menu li.active span').textContent || 'Chat';
+  db.ref('messages')
+    .orderByChild('timestamp')
+    .on('value', snapshot => {
       chatMessages.innerHTML = '';
       snapshot.forEach(childSnapshot => {
         const msg = childSnapshot.val();
@@ -178,14 +180,15 @@ function loadMessages() {
           const isOutgoing = msg.uid === auth.currentUser.uid;
           msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
 
-          // Create avatar element and set its color.
-          const avatar = document.createElement('div');
-          avatar.classList.add('avatar');
-          // Assign the color based on the displayName (or email)
-          const avatarColorClass = getAvatarColor(msg.displayName);
-          avatar.classList.add(avatarColorClass);
-          // Display the first letter
-          avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+          // Only create and append the avatar if the message is not outgoing.
+          if (!isOutgoing) {
+            const avatar = document.createElement('div');
+            avatar.classList.add('avatar');
+            const avatarColorClass = getAvatarColor(msg.displayName);
+            avatar.classList.add(avatarColorClass);
+            avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+            msgDiv.appendChild(avatar);
+          }
 
           // Create message bubble with text and timestamp.
           const bubble = document.createElement('div');
@@ -198,19 +201,21 @@ function loadMessages() {
           const time = document.createElement('div');
           time.classList.add('timestamp');
           const date = new Date(msg.timestamp);
-          time.textContent = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          time.textContent = date.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
 
           bubble.appendChild(messageText);
           bubble.appendChild(time);
-
-          msgDiv.appendChild(avatar);
           msgDiv.appendChild(bubble);
           chatMessages.appendChild(msgDiv);
         }
       });
       chatMessages.scrollTop = chatMessages.scrollHeight;
     });
-  }
+}
+
 
     function selectRoom(room, element) {
       currentRoom = room;
@@ -340,17 +345,6 @@ document.addEventListener('click', function(e) {
     }
   }
 });
-    if (!isOutgoing) {
-  const avatar = document.createElement('div');
-  avatar.classList.add('avatar');
-  // Assign the color based on the displayName (or email)
-  const avatarColorClass = getAvatarColor(msg.displayName);
-  avatar.classList.add(avatarColorClass);
-  // Display the first letter
-  avatar.textContent = msg.displayName.charAt(0).toUpperCase();
-  msgDiv.appendChild(avatar);
-}
-
   </script>
 </body>
 </html>
