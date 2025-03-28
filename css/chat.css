@@ -275,7 +275,7 @@ header {
 }
 
 .message.outgoing .bubble {
-  background: #DCF8C6;
+  background: var(--outgoing-message);
 }
 
 .message-text {
@@ -293,7 +293,7 @@ header {
 }
 
 .message.incoming .timestamp {
-  text-align: left;
+  text-align: right;
 }
 
 .chat-input-area {
