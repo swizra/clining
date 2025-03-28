@@ -441,7 +441,9 @@ header {
 .message-text {
   word-wrap: break-word;
 }
-
+.message{
+  position:relative;
+}
 .timestamp {
   position: fixed; 
   right: -60px; 
