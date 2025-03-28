@@ -444,10 +444,9 @@ header {
 
 .timestamp {
   position: absolute;
-  top: 50%;
   right: -60px; 
   transform: translateY(-50%);
-  opacity: 0;
+  opacity: 1;
   transition: right 0.3s ease, opacity 0.3s ease;
   font-size: var(--timestamp-font-size);
   color: var(--timestamp-color);
