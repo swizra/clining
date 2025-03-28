@@ -140,7 +140,7 @@ header {
   gap: 10px;
   padding: 8px;
   margin-bottom: 10px;
-  border-radius: 50px;
+  border-radius: 50%;
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -292,7 +292,7 @@ header {
   flex: 1;
   padding: 10px 15px;
   padding-right: 40px;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 1px solid var(--border-color);
   background: none;
   color: var(--text-color);
