@@ -359,7 +359,7 @@ header {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-#chatInfoPanel {
+.chatInfoPanel {
   display: none;
   position: fixed;
   top: 60px;
@@ -378,17 +378,17 @@ header {
   transition: all 0.3s ease;
 }
 
-#chatInfoPanel:hover {
+.chatInfoPanel:hover {
   border-color: var(--accent-color);
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-#chatInfoPanel #chatInfoContent {
+.chatInfoPanel #chatInfoContent {
   line-height: 1.4;
   color: var(--text-color);
 }
 
-#chatInfoPanel a {
+.chatInfoPanel a {
   color: var(--accent-color);
   text-decoration: underline;
 }
