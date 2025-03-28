@@ -110,7 +110,7 @@ side_navigation
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.database();
-
+    const logo = document.querySelector('.logo');
     const authContainer = document.getElementById('authContainer');
     const chatContainer = document.getElementById('chatContainer');
     const authTitle = document.getElementById('authTitle');
@@ -159,6 +159,7 @@ side_navigation
       chatMessages.innerHTML = '';
       authContainer.style.display = 'flex';
       chatContainer.style.display = 'none';
+      logo.textContent = 'Soyth';
     }
 
     auth.onAuthStateChanged(user => {
@@ -215,14 +216,20 @@ side_navigation
       });
     }
 
-    function selectRoom(room, element) {
-      currentRoom = room;
-      document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
-      element.classList.add('active');
-      loadMessages();
-      scrollToBottom();
-      contactsMenu.classList.remove('open');
-    }
+function selectRoom(room, element) {
+  currentRoom = room;
+  document.querySelectorAll('.contacts-menu li').forEach(li => li.classList.remove('active'));
+  element.classList.add('active');
+
+  const roomName = element.querySelector('span').textContent;
+  chatHeader.textContent = roomName;
+  logo.textContent = roomName; // 👈 Swap logo
+
+  loadMessages();
+  scrollToBottom();
+  contactsMenu.classList.remove('open');
+}
+
 
     function scrollToBottom() {
       const isAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop === chatMessages.clientHeight;
