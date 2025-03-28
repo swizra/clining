@@ -449,9 +449,9 @@ header {
 }
 /* Initially move the timestamps off-screen */
 .timestamp {
-  position: absolute;
+  position: fixed;
   font-size: var(--timestamp-font-size);
-  left: -60px; /* Move timestamp to the right */
+  right: -30px; /* Move timestamp to the right */
   opacity: 0; /* Hide the timestamp initially */
   transition: left 0.3s ease, opacity 0.3s ease; /* Smooth transition */
 }
