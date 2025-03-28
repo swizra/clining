@@ -447,6 +447,7 @@ header {
 .message{
   position:relative;
 }
+/* Initially move the timestamps off-screen */
 .timestamp {
   position: relative;
   left: -60px; /* Move timestamp to the right */
@@ -454,8 +455,8 @@ header {
   transition: left 0.3s ease, opacity 0.3s ease; /* Smooth transition */
 }
 
+/* Make the timestamp visible after swipe */
 .timestamp.visible {
   left: 0; /* Move timestamp to its original position */
   opacity: 1; /* Make the timestamp visible */
 }
-
