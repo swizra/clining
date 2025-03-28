@@ -421,7 +421,7 @@ header {
 .message {
   display: flex;
   align-items: flex-end;
-  margin: 10px 0;
+  margin: 5px 0;
   max-width: 90%;
 }
 
