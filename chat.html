@@ -328,7 +328,16 @@ document.addEventListener('click', function(e) {
     }
   }
 });
-
+document.addEventListener('click', function(e) {
+  // Check if the menu is open (using the "open" class)
+  if (contactsMenu.classList.contains('open')) {
+    // If the clicked element is not within the menu and not the menu button
+    const menuBtn = document.querySelector('.menu-btn');
+    if (!contactsMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+      contactsMenu.classList.remove('open');
+    }
+  }
+});
   </script>
 </body>
 </html>
