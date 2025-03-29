@@ -428,22 +428,20 @@ header {
   justify-content: flex-end;
 }
 
-.message {
+.message.incoming, .message.outgoing {
+  display: inline-flex;
   position: relative;
-  margin: 5px 0;
-  max-width: 90%;
 }
-
 .message.incoming {
-  flex-direction: row;
-  border: none;
+  align-items: flex-start;
+  max-width: 80%;
+  margin-right: auto;
 }
 
 .message.outgoing {
   flex-direction: row-reverse;
   margin-left: auto;
 }
-
 .message.outgoing .bubble {
   background: var(--outcoming-message);
   border: none;
@@ -462,13 +460,8 @@ header {
   right: -60px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.7rem;
+  font-size: var(--timestamp-font-size);
   color: var(--timestamp-color);
   white-space: nowrap;
-}
-
-.timestamp.visible {
-  font-size: var(--timestamp-font-size);
-  right: -60px;
   opacity: 1;
 }
