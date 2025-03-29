@@ -478,7 +478,6 @@ header {
   white-space: nowrap;
 }
 .message .timestamp {
-  display: none !important;
 }
 .booster .timestamp {
   position: absolute;
