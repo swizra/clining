@@ -477,29 +477,3 @@ header {
   color: var(--timestamp-color);
   white-space: nowrap;
 }
-.message .timestamp {
-}
-.booster .timestamp {
-  position: absolute;
-  right: -60px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.7rem;
-  color: var(--timestamp-color);
-  white-space: nowrap;
-  opacity: 1; /* Make timestamp slightly transparent */
-}
-
-.timestamp.visible {
-  font-size: var(--timestamp-font-size);
-  right: -60px;
-  opacity: 1;
-}
-.booster {
-  position: relative;
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: -1;
-  width: 100%;
-  filter: blur(0.5px);
-}
