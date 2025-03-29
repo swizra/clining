@@ -429,6 +429,7 @@ header {
 }
 
 .message {
+  z-index: 1;
   position: relative;
   margin: 5px 0;
   max-width: 100%;
@@ -476,6 +477,19 @@ header {
   color: var(--timestamp-color);
   white-space: nowrap;
 }
+.message .timestamp {
+  display: none !important;
+}
+.booster .timestamp {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  color: var(--timestamp-color);
+  white-space: nowrap;
+  opacity: 1; /* Make timestamp slightly transparent */
+}
 
 .timestamp.visible {
   font-size: var(--timestamp-font-size);
@@ -483,10 +497,10 @@ header {
   opacity: 1;
 }
 .booster {
-  position: absolute;
-  opacity: 0.3 !important;
-  pointer-events: none; 
-  z-index: -1; 
+  position: relative;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
   width: 100%;
-  filter: blur(0.5px); 
+  filter: blur(0.5px);
 }
