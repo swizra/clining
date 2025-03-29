@@ -174,59 +174,61 @@ function loadMessages() {
     .orderByChild('timestamp')
     .on('value', snapshot => {
       chatMessages.innerHTML = '';
-      snapshot.forEach(childSnapshot => {
-        const msg = childSnapshot.val();
-        if (msg.room === currentRoom) {
-          // Create regular message
-          const msgDiv = document.createElement('div');
-          const isOutgoing = msg.uid === auth.currentUser.uid;
-          msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
+snapshot.forEach(childSnapshot => {
+    const msg = childSnapshot.val();
+    if (msg.room === currentRoom) {
+      // Create regular message (without timestamp)
+      const msgDiv = document.createElement('div');
+      const isOutgoing = msg.uid === auth.currentUser.uid;
+      msgDiv.classList.add('message', isOutgoing ? 'outgoing' : 'incoming');
 
-          // Create booster element
-          const boosterDiv = document.createElement('div');
-          boosterDiv.classList.add('booster', isOutgoing ? 'outgoing' : 'incoming');
+      // Create booster element (with timestamp)
+      const boosterDiv = document.createElement('div');
+      boosterDiv.classList.add('booster', isOutgoing ? 'outgoing' : 'incoming');
 
-          // Common elements creation function
-          const createMessageElements = (container) => {
-            if (!isOutgoing) {
-              const avatar = document.createElement('div');
-              avatar.classList.add('avatar');
-              const avatarColorClass = getAvatarColor(msg.displayName);
-              avatar.classList.add(avatarColorClass);
-              avatar.textContent = msg.displayName.charAt(0).toUpperCase();
-              container.appendChild(avatar);
-            }
-
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-
-            const messageText = document.createElement('div');
-            messageText.classList.add('message-text');
-            messageText.textContent = msg.text;
-
-            const time = document.createElement('div');
-            time.classList.add('timestamp');
-            const date = new Date(msg.timestamp);
-            time.textContent = date.toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit'
-            });
-
-            bubble.appendChild(messageText);
-            container.appendChild(bubble);
-            container.appendChild(time);
-          };
-
-          // Create elements for both message and booster
-          createMessageElements(boosterDiv);
-          createMessageElements(msgDiv);
-          createMessageElements(boosterDiv);
-
-          // Append to chat
-          chatMessages.appendChild(msgDiv);
-          chatMessages.appendChild(boosterDiv);
+      // Common elements creation (without timestamp for message)
+      const createMessageElements = (container, includeTimestamp = false) => {
+        if (!isOutgoing) {
+          const avatar = document.createElement('div');
+          avatar.classList.add('avatar');
+          const avatarColorClass = getAvatarColor(msg.displayName);
+          avatar.classList.add(avatarColorClass);
+          avatar.textContent = msg.displayName.charAt(0).toUpperCase();
+          container.appendChild(avatar);
         }
-      });
+
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+
+        const messageText = document.createElement('div');
+        messageText.classList.add('message-text');
+        messageText.textContent = msg.text;
+        
+        bubble.appendChild(messageText);
+        container.appendChild(bubble);
+
+        // Only add timestamp to booster
+        if (includeTimestamp) {
+          const time = document.createElement('div');
+          time.classList.add('timestamp');
+          const date = new Date(msg.timestamp);
+          time.textContent = date.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          container.appendChild(time);
+        }
+      };
+
+      // Create elements - message without timestamp, booster with timestamp
+      createMessageElements(msgDiv, false);
+      createMessageElements(boosterDiv, true);
+
+      // Append to chat
+      chatMessages.appendChild(boosterDiv);
+      chatMessages.appendChild(msgDiv);
+    }
+  });
       chatMessages.scrollTop = chatMessages.scrollHeight;
     });
 }
