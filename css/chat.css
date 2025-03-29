@@ -472,3 +472,11 @@ header {
   right: -60px;
   opacity: 1;
 }
+.booster {
+  position: absolute;
+  opacity: 0.3 !important;
+  pointer-events: none; 
+  z-index: -1; 
+  width: 100%;
+  filter: blur(0.5px); 
+}
