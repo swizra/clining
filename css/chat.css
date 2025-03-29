@@ -306,8 +306,10 @@ header {
   position: absolute;
   bottom: 50px;
   left: 50%;
+  bottom: 60px;
   transform: translateX(-50%);
   cursor: pointer;
+  font-size: 200px;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10px;
   border-radius: 50%;
@@ -384,6 +386,7 @@ header {
 
 .bubble {
   position: relative;
+  overflow: visible;
   background-color: #f1f1f1;
   padding: 8px 12px;
   border-radius: 12px;
@@ -392,6 +395,8 @@ header {
   flex-direction: column;
   border: 1px solid var(--border-color);
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .message.incoming .bubble {
@@ -399,35 +404,57 @@ header {
   border-radius: 12px 12px 12px 0;
 }
 
-.message.outgoing .bubble {
+.message.outcoming .bubble {
   background: var(--input-bg);
   color: var(--text-color);
-  border-radius: 12px 12px 0 0;
+  border-radius: 12px 12px 0 0px;
+}
+
+.incoming .bubble {
+  background: var(--input-bg);
+  position: relative;
 }
 
 .chat-messages {
   overflow-x: auto;
+  overflow-y: auto;
   flex: 1;
-  padding: 0 10px 65px;
+  padding: 0 10px 12px;
+  padding-bottom: 65px;
+  overflow-y: auto;
   background: var(--bg-color);
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
 .message {
   position: relative;
-  min-width: fit-content;
   margin: 5px 0;
   max-width: 90%;
 }
 
-.outgoing {
-  margin-left: auto;
-  margin-right: 60px;
+.message.incoming {
+  flex-direction: row;
+  border: none;
 }
 
-.incoming {
-  margin-left: 60px;
+.message.outgoing {
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+.message.outgoing .bubble {
+  background: var(--outcoming-message);
+  border: none;
+}
+
+.message-text {
+  word-wrap: break-word;
+}
+
+.message {
+  position: relative;
 }
 
 .timestamp {
@@ -440,7 +467,8 @@ header {
   white-space: nowrap;
 }
 
-.message.outgoing .bubble {
-  background: var(--outcoming-message);
-  border: none;
+.timestamp.visible {
+  font-size: var(--timestamp-font-size);
+  right: -60px;
+  opacity: 1;
 }
