@@ -390,7 +390,7 @@ header {
   background-color: #f1f1f1;
   padding: 8px 12px;
   border-radius: 12px;
-  max-width: 100%;
+  max-width: auto;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border-color);
@@ -431,7 +431,7 @@ header {
 .message {
   position: relative;
   margin: 5px 0;
-  max-width: 90%;
+  max-width: 100%;
 }
 
 .message.incoming {
