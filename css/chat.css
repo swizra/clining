@@ -435,15 +435,25 @@ header {
 }
 
 .message.incoming {
-  flex-direction: row;
-  border: none;
+  display: flex;
+  align-items: flex-start;
+  width: auto !important;
+  max-width: 80%; 
+  margin-right: auto; 
 }
-
+.message.incoming .avatar {
+  flex-shrink: 0; 
+  margin-right: 8px; 
+}
 .message.outgoing {
   flex-direction: row-reverse;
   margin-left: auto;
 }
-
+.message.incoming .bubble {
+  flex: 0 1 auto; 
+  min-width: 0;
+  width: auto; 
+}
 .message.outgoing .bubble {
   background: var(--outcoming-message);
   border: none;
