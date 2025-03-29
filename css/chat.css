@@ -400,11 +400,15 @@ header {
 }
 
 .message.incoming .bubble {
+  margin-top:2px;
+  margin-bottom: 2px;
   color: var(--text-color);
   border-radius: 12px 12px 12px 0;
 }
 
 .message.outcoming .bubble {
+  margin-top:2px;
+  margin-bottom: 2px;
   background: var(--input-bg);
   color: var(--text-color);
   border-radius: 12px 12px 0 0px;
