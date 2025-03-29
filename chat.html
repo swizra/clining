@@ -200,6 +200,7 @@ function loadMessages() {
 
           const time = document.createElement('div');
           time.classList.add('timestamp');
+          
           const date = new Date(msg.timestamp);
           time.textContent = date.toLocaleTimeString([], {
             hour: '2-digit',
@@ -208,7 +209,7 @@ function loadMessages() {
 
           bubble.appendChild(messageText);
           msgDiv.appendChild(bubble);
-          bubble.appendChild(time);
+          msgDiv.appendChild(time);
           chatMessages.appendChild(msgDiv);
         }
       });
